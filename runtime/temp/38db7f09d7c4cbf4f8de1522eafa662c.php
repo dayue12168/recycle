@@ -1,0 +1,96 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:58:"/project/recycle/public/../app/admin/view/login/index.html";i:1556082789;}*/ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="guanzejian">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>登录后台</title>
+    <link rel="stylesheet" href="/static/admin/layui/css/layui.css">
+    <style>
+
+    </style>
+</head>
+<body style="background-color: #f5f5f5;">
+    <fieldset class="layui-elem-field" style="width: 380px; margin:0 auto; margin-top: 10%; box-shadow: 0 0 10px #d9edf7;">
+        <legend>
+            登录
+        </legend>
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    手机号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="username" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    密码
+                </label>
+               
+                <div class="layui-input-inline">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="signin">
+                        立即提交
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary xgmima">
+                        修改密码
+                    </button>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+    <div id="addmain" style="display: none">
+        <div class="layui-form-item" style="margin-top: 20px;">
+            <label class="layui-form-label">
+                手机号
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" onchange="tels()" name="telphone" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                新密码
+            </label>
+            <div class="layui-input-inline">
+                <input type="password" onchange="passw()" name="psw1" required lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                验证码
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" onchange="printyzm()" name="printyzm" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width:50%;margin: 0;padding: 0;">
+                <input type="button" name="yzm" value="发送验证码" required lay-verify="required" autocomplete="off" class="layui-input layui-input-inline" style="width:50%;margin: 0;padding: 0;">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn oSure">
+                    立即提交
+                </button>
+                <button class="layui-btn layui-btn-primary oCancel">
+                    取消修改
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/common/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/static/admin/layui/layui.js"></script>
+    <script src="/static/admin/js/login.js"></script>
+</body>
+</html>

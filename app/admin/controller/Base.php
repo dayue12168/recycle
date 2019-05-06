@@ -8,7 +8,6 @@
 
 namespace app\admin\controller;
 use think\Controller;
-use think\Session;
 
 class Base extends Controller
 {

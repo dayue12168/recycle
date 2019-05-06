@@ -42,6 +42,11 @@ layui.use('element', function(){
   function oClick(obj){
       obj.css({"background":"#1AA194","color":"#fff"}).siblings().prop("disabled",true);
   }
+
+
+  $(".excel").click(function(){
+      window.location.href='/admin/count/number_excel';
+  });
   
   
   // <!-- tabnav切换 -->
@@ -62,7 +67,7 @@ layui.use('element', function(){
           trigger: 'axis'
       },
       legend: {
-          data:['班组1','班组2','班组3','班组4','班组5'],
+          data:['海科园班组1','海科园班组2','海科园班组3','海科园班组4'],
           left:"50%",
           top:5
       },
@@ -87,34 +92,28 @@ layui.use('element', function(){
       },
       series: [
           {
-              name:'班组1',
+              name:'海科园班组1',
               type:'line',
               stack: '总量',
               data:[120, 132, 101, 134, 90, 230, 210]
           },
           {
-              name:'班组2',
+              name:'海科园班组2',
               type:'line',
               stack: '总量',
               data:[220, 182, 191, 234, 290, 330, 310]
           },
           {
-              name:'班组3',
+              name:'海科园班组3',
               type:'line',
               stack: '总量',
               data:[150, 232, 201, 154, 190, 330, 410]
           },
           {
-              name:'班组4',
+              name:'海科园班组4',
               type:'line',
               stack: '总量',
               data:[320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-              name:'班组5',
-              type:'line',
-              stack: '总量',
-              data:[820, 932, 901, 934, 1290, 1330, 1320]
           }
       ]
   };
@@ -159,11 +158,10 @@ layui.use('element', function(){
               radius : '55%',
               center: ['50%', '50%'],
               data:[
-                  {value:335, name:'班组1'},
-                  {value:310, name:'班组2'},
-                  {value:274, name:'班组3'},
-                  {value:235, name:'班组4'},
-                  {value:400, name:'班组5'}
+                  {value:335, name:'海科园班组1'},
+                  {value:310, name:'海科园班组2'},
+                  {value:274, name:'海科园班组3'},
+                  {value:235, name:'海科园班组4'}
               ].sort(function (a, b) { return a.value - b.value; }),
               roseType: 'radius',
               label: {

@@ -28,8 +28,8 @@
                 <div class="flex-box flex-2 flex-col-c">
                     <select name="" id="" lay-verify="required" >
                         <option value="">选择设备类型</option>
-                        {foreach $types as $val}
-                        <option value="{$val.cap_type}">{$val.cap_type}</option>
+                        {foreach $types as $key=>$val}
+                        <option value="{$val.cap_type}" {if !$key}selected{/if}>{$val.cap_type}</option>
                         {/foreach}
                     </select>
                     <!--<button style="margin-top: 0;margin-left: 20px;display: none" class="layui-btn layui-btn-small query_SB">查询设备</button>-->
@@ -90,10 +90,10 @@
                    {/foreach}
                 </tbody>
             </table> 
-            <div class="layui-elem-quote" style="padding: 5px 0;">
-                &nbsp;&nbsp;查询到设备总数：<span class="len"></span>
-                &nbsp;&nbsp; &nbsp;&nbsp;<div id="demoOne" style="display: inline-block;"></div>
-            </div>
+            <!--<div class="layui-elem-quote" style="padding: 5px 0;">-->
+                <!--&nbsp;&nbsp;查询到设备总数：<span class="len"></span>-->
+                <!--&nbsp;&nbsp; &nbsp;&nbsp;<div id="demoOne" style="display: inline-block;"></div>-->
+            <!--</div>-->
         </div>
     </div>   
 </body>

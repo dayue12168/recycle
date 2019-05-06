@@ -52,11 +52,11 @@ class User
     {
         $arr=explode(',',$auth);
         if(empty($arr[0])){//拥有全部权限
-            $sql='select auth_id id,auth_name node,concat("/",module_name,"/",controller_name,"/",action_name) url,parent_id pid from jh_role_auth';
+            $sql='select auth_id id,parent_id pid,auth_name node,concat("/",module_name,"/",controller_name,"/",action_name) url from jh_role_auth';
             $list=Db::query($sql);
         }else{//拥有部分权限
             foreach($arr as $val){
-                $sql='select auth_id id,auth_name node,concat("/",module_name,"/",controller_name,"/",action_name,".html") url,parent_id pid from jh_role_auth where auth_id='.$val;
+                $sql='select auth_id id,parent_id pid,auth_name node,concat("/",module_name,"/",controller_name,"/",action_name,".html") url,parent_id pid from jh_role_auth where auth_id='.$val;
                 $list[]=Db::query($sql)[0];
             }
         }

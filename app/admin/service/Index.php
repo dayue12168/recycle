@@ -17,6 +17,16 @@ class Index
     {
         $sql='select jh.*,concat(ja1.area_name,"-",ja2.area_name,"-",ja3.area_name) address from jh_cap jh join jh_dustbin_info jdi on jh.cap_id=jdi.cap_id join jh_area ja1 on jdi.area_id0=ja1.area_id join jh_area ja2 on jdi.area_id1=ja2.area_id join jh_area ja3 on jdi.area_id2=ja3.area_id where cap_status=0 and jdi.area_id2='.$road;
         $res=Db::query($sql);
+//        $res = Db::table('jh_cap')
+//            ->alias('jh')
+//            ->join('jh_dustbin_info jdi','jh.cap_id=jdi.cap_id')
+//            ->join('jh_area ja1','jdi.area_id0=ja1.area_id')
+//            ->join('jh_area ja2','jdi.area_id1=ja2.area_id')
+//            ->join('jh_area ja3','jdi.area_id2=ja3.area_id')
+//            ->where('jh.cap_status',0)
+//            ->where('jdi.area_id2',$road)
+//            ->field('jh.*,concat(ja1.area_name,"-",ja2.area_name,"-",ja3.area_name) address')
+//            ->paginate(1);
         return $res;
     }
 
@@ -45,17 +55,16 @@ class Index
     {
         //查询有绑定垃圾桶信息的
         if(is_array($addr)){
-            $sql='select jh.*,concat(ja1.area_name,"-",ja2.area_name,"-",ja3.area_name) address from jh_cap jh join jh_dustbin_info jdi on jh.cap_id=jdi.cap_id join jh_area ja1 on jdi.area_id0=ja1.area_id join jh_area ja2 on jdi.area_id1=ja2.area_id join jh_area ja3 on jdi.area_id2=ja3.area_id where cap_type='.$type.' and cap_status='.$status;
+            $sql='select jh.*,concat(ja1.area_name,"-",ja2.area_name,"-",ja3.area_name) address from jh_cap jh join jh_dustbin_info jdi on jh.cap_id=jdi.cap_id join jh_area ja1 on jdi.area_id0=ja1.area_id join jh_area ja2 on jdi.area_id1=ja2.area_id join jh_area ja3 on jdi.area_id2=ja3.area_id where cap_type="'.$type.'" and cap_status='.$status;
             if($addr[2]<0){//表明查询全部区域
                 $sql.=' and jdi.area_id1='.$addr[1];
             }else{
                 $sql.=' and jdi.area_id2='.$addr[2];
             }
         }else{
-            $sql='select *,case cap_status when 1 then "已禁用" when 2 then "未绑定" end address from jh_cap where cap_type='.$type.' and cap_status='.$status;
+            $sql='select *,case cap_status when 1 then "已禁用" when 2 then "未绑定" end address from jh_cap where cap_type="'.$type.'" and cap_status='.$status;
         }
         $sql.=' order by cap_imei limit 500';
-//        return $sql;
         return Db::query($sql);
     }
 

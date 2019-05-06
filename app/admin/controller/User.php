@@ -285,13 +285,9 @@ class User extends Base
     }
 
 
-    public function test()
+    public function waring()
     {
-        $jhLog=new JhLog();
-        $jhLog->save([
-            'log_type'=>2,
-            'log_info'=>'aaaaaa'
-        ]);
+        return $this->fetch();
     }
 
 }
