@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:58:"/project/recycle/public/../app/admin/view/index/index.html";i:1556082789;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:58:"/project/recycle/public/../app/admin/view/index/index.html";i:1556527482;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
     <meta name="Author" content="guanzejian">
     <meta name="Keywords" content="">
     <meta name="Description" content="">
-    <title>后台模板</title>
+    <title>垃圾检测系统</title>
     <link rel="stylesheet" href="/static/admin/layui/css/layui.css">
     <style>
         .layui-nav-tree>.layui-nav-item>.layui-nav-child>.layui-nav-item{padding-left: 20px}

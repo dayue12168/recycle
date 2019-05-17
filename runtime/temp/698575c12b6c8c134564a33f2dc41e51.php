@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1556082789;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1557110305;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="/static/admin/layui/css/layui.css">
     <title>欢迎</title>
 </head>
+    <style type="text/css">
+       html,body,#container{
+           height:100%;
+       }
+    </style>
 <body>
-    <!-- 欢迎您：<span><?php echo \think\Session::get('adminRole'); ?>(<?php echo \think\Session::get('adminUser'); ?>)</span> -->
     <div class="layui-col-lg12 layui-collapse" style="border: none;">
                 <div class="layui-col-lg12 layui-col-md12">
 
@@ -67,5 +71,98 @@
                 </div>
                 <a href="javascript:;">
             </a></div>
+
+
+            <div id='container'></div>
+            <div class="amap-geolocation-con" style="position: absolute; z-index: 9999; right: 10px; bottom: 20px;"><button style="height: 47px;width: 90px;padding: 0 5px;background-color: #fff;" type="button" id="setFitView" class="btn  btn-xs reload">
+                <i class="fa fa-refresh" aria-hidden="true"></i>垃圾桶查看
+            </button></div>
+
+
+
 </body>
+<script src="/static/common/js/jquery-2.1.4.min.js"></script>
+<script src="/static/common/js/bootstrap.min.js"></script>
+<script src="/static/common/layer/layer.js"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=6c2cfa8103979289249bd9a725514ab2"></script>
+<!-- add -->
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script>
+var map = new AMap.Map('container', {
+    resizeEnable: true
+});
+AMap.plugin('AMap.Geolocation', function() {
+    var geolocation = new AMap.Geolocation({
+        enableHighAccuracy: true,//是否使用高精度定位，默认:true
+        timeout: 10000,          //超过10秒后停止定位，默认：5s
+        buttonPosition:'RB',    //定位按钮的停靠位置
+        buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+        zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+
+    });
+    map.addControl(geolocation);
+    geolocation.getCurrentPosition(function(status,result){
+        if(status=='complete'){
+            onComplete(result)
+        }else{
+            onError(result)
+        }
+    });
+});
+//解析定位结果
+//  自身位置
+var startPoslng = "",srartPoslat = "";
+
+function onComplete(data) {
+    // document.getElementById('status').innerHTML='定位成功'
+    log.success("定位成功");
+
+    startPoslng = data.position.lng;
+    startPoslat = data.position.lat;
+    var str = [];
+    str.push('定位结果：' + data.position);
+    str.push('定位类别：' + data.location_type);
+    if(data.accuracy){
+        str.push('精度：' + data.accuracy + ' 米');
+    }//如为IP精确定位结果则没有精度信息
+    str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+}
+// 解析定位错误信息
+function onError(data) {
+    // alert(JSON.stringify(data));
+    layer.open({
+        content: '定位失败，请设置定位权限'
+        ,btn: '我知道了'
+    });
+}
+
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
+
+        var markers = [{
+            icon: '/static/index/images/trash_unfull.png',
+            position: [121.480699,31.236858]
+        }, {
+            icon: '/static/index/images/trash_unfull.png',
+            position: [121.481699,31.239858]
+        }, {
+            icon: '/static/index/images/trash_full.png',
+            position: [121.498971,31.240019]
+        }];
+
+        // 添加一些分布不均的点到地图上,地图上添加三个点标记，作为参照
+        markers.forEach(function(marker) {
+            new AMap.Marker({
+                map: map,
+                icon: marker.icon,
+                position: [marker.position[0], marker.position[1]],
+                offset: new AMap.Pixel(-13, -30)
+            });
+        });
+        var newCenter = map.setFitView();
+    });
+
+
+</script>
 </html>

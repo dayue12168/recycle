@@ -196,7 +196,7 @@ class Demo
 
         $response = HttpClient::execute($request);
         // return json($response);
-        print_r($response);
+        return $response;
     }
 
 
