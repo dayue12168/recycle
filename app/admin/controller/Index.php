@@ -14,12 +14,16 @@ use think\Request;
 use app\admin\model\JhCap;
 use app\admin\model\JhDustbinInfo;
 use app\admin\model\JhArea;
+use think\Db;
 
 class Index extends Base
 {
     //首页
     public function index()
     {
+        // sso登录时候清除token
+        $tel = session('adminUser');
+        Db::table('jh_user')->where('tel',$tel)->update(['token' => '']);
         //获取其角色以及对应的权限列表
         $role=model('User','service')->getRole(session('adminUser'));
         session('adminRole',$role['role_name']);
@@ -30,6 +34,25 @@ class Index extends Base
     //欢迎页
     public function index2()
     {
+
+        //垃圾桶数
+        $trash=JhDustbinInfo::where('dustbin_state','=',0)->count();
+
+        //溢出垃圾桶数
+        $dust=JhDustbinInfo::where('dustbin_state','=',0)
+            ->where('dustbin_overflow','=',1)->count();
+
+        //24小时垃圾数
+        $startTime=date('Y-m-d',strtotime('-1 day'));
+        $total=Db::table('jh_rubbish_record')->whereTime('dust_date','between',[$startTime,$startTime])->value('dust_num');
+        $total=$total?$total:0;
+
+        $timer = date('Y-m-d H:i:s',time());
+
+        $this->assign('trash',$trash);
+        $this->assign('dust',$dust);
+        $this->assign('total',$total);
+        $this->assign('timer',$timer);
         return $this->fetch();
     }
 
@@ -65,6 +88,8 @@ class Index extends Base
         $types=model('Index','service')->getTypes();
         $this->assign('types',$types);
         $caps=model('Index','service')->device_mana($road);
+//        dump($caps);
+
         $this->assign('caps',$caps);
         return $this->fetch();
     }
@@ -142,7 +167,7 @@ class Index extends Base
         $param['cap_position']=$request->param('position');
         $param['cap_serial']=$request->param('serial');
         $param['cap_sim']=$request->param('sim');
-        $param['cap_type']=intval($request->param('type'));
+        $param['cap_type']=($request->param('type'));
 //        return json($param);
         $jhCap=new JhCap($param);
         $jhCap->save();
@@ -286,15 +311,16 @@ class Index extends Base
     //用imei号查询设备
     public function getCapById(Request $request)
     {
-        $imei=$request->param('id');
         $jhCap=new JhCap();
-        $jhCap=$jhCap::getByCapImei($imei);
-        return $jhCap;
+        $imei=$request->param('id');
+        if(!empty($imei)){
+            $res[]=$jhCap::getByCapImei($imei);
+            if(empty($res[0])){
+                $res=[];
+            }
+        }else{
+            $res=$jhCap::all();
+        }
+        return $res;
     }
-
-
-
-
-
-
 }

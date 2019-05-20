@@ -7,7 +7,7 @@
     <meta name="Author" content="guanzejian">
     <meta name="Keywords" content="">
     <meta name="Description" content="">
-    <title>后台模板</title>
+    <title>垃圾检测系统</title>
     <link rel="stylesheet" href="__LAYUICSS__/layui.css">
     <style>
         .layui-nav-tree>.layui-nav-item>.layui-nav-child>.layui-nav-item{padding-left: 20px}
@@ -28,7 +28,7 @@
                 </a>
                 <!-- 水平导航 -->
                 <ul class="layui-nav" style="position: absolute; top: 0; right: 0; background: none;">
-                    
+
                     <li class="layui-nav-item">
                         <a href="javascript:;">
                             欢迎！<span>{$Think.session.adminRole}(<span class="reo">{$Think.session.adminUser}</span>)</span>
@@ -108,12 +108,11 @@
                     cache:false,
                     success:function(data){
                         cms.addNav(data,0,'id', 'pid', 'node', 'url')
+                        cms.bind(60 + 41 + 20 + 44); //头部高度 + 顶部切换卡标题高度 + 顶部切换卡内容padding + 底部高度
+                        cms.clickLI(0);
                     }
                 })
             })
-
-            cms.bind(60 + 41 + 20 + 44); //头部高度 + 顶部切换卡标题高度 + 顶部切换卡内容padding + 底部高度
-            cms.clickLI(0);
         });
     </script>
 </body>

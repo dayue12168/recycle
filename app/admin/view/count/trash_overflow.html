@@ -46,7 +46,7 @@
                 </div>
                 <div class="layui-inline" style="cursor: pointer;">
                     <button class="layui-btn layui-btn-small">查询<i class="layui-icon">&#xe615;</i></button>
-                    <button class="layui-btn layui-btn-small">导出<i class="layui-icon">&#xe602;</i></button>
+                    <button class="layui-btn layui-btn-small excel">导出<i class="layui-icon">&#xe602;</i></button>
                 </div>
             </div>
             <div class="layui-form-item flex-box flex-2" style="background:#f6f6f6;border: 1px solid #b2b2b2">
@@ -59,31 +59,27 @@
                 <div class="navChild">
                     <p>
                         <button onclick="oClick($(this))" class="layui-btn layui-btn-primary layui-btn-small">全省</button>
-                        <input type="checkbox" name="" value="" title="上海市" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="上海市" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="上海市" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="上海市" lay-skin="primary">
+                        {volist name='citys' id='vo'}
+                        <input type="checkbox" name="{$vo.area_name}" value="{$vo.area_name}" title="{$vo.area_name}" lay-skin="primary">
+                        {/volist}
                     </p>
                     <p class="hide">
                         <button onclick="oClick($(this))" class="layui-btn layui-btn-primary layui-btn-small">全市</button>
-                        <input type="checkbox" name="" value="" title="徐汇区" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="徐汇区" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="徐汇区" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="徐汇区" lay-skin="primary">
+                        {volist name='regions' id='vo'}
+                        <input type="checkbox" name="{$vo.area_name}" value="{$vo.area_name}" title="{$vo.area_name}" lay-skin="primary">
+                        {/volist}
                     </p>
                     <p class="hide">
                         <button onclick="oClick($(this))" class="layui-btn layui-btn-primary layui-btn-small">全区</button>
-                        <input type="checkbox" name="" value="" title="龙华街道" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="龙华街" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="龙华街" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="龙华街" lay-skin="primary"> 
+                        {volist name='roads' id='vo'}
+                        <input type="checkbox" name="{$vo.area_name}" value="{$vo.area_name}" title="{$vo.area_name}" lay-skin="primary">
+                        {/volist}
                     </p>
                     <p class="hide">
                         <button onclick="oClick($(this))" class="layui-btn layui-btn-primary layui-btn-small">整个街道</button>
-                        <input type="checkbox" name="" value="" title="班组1" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="班组2" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="班组2" lay-skin="primary">
-                        <input type="checkbox" name="" value="" title="班组2" lay-skin="primary">  
+                        {volist name='groups' id='vo'}
+                        <input type="checkbox" name="{$vo.area_name}" value="{$vo.area_name}" title="{$vo.area_name}" lay-skin="primary">
+                        {/volist}
                     </p>
                 </div>
             </div>
@@ -132,20 +128,21 @@
                             </tr> 
                         </thead>
                         <tbody class="tbody">
-                            <tr>
-                                <td>上海市-徐汇区-龙华街道</td>
-                                <td>200</td>
-                                <td>1000KG</td>
-                                <td>10KG</td>
-                                <td>100KG</td>
-
-                            </tr>
+                        {volist name='roads' id='vo'}
+                        <tr>
+                            <td>{$citys[0]['area_name']}-{$regions[0]['area_name']}-{$vo.area_name}</td>
+                            <td>200</td>
+                            <td>1000KG</td>
+                            <td>10KG</td>
+                            <td>100KG</td>
+                        </tr>
+                        {/volist}
                         </tbody>
                     </table> 
-                    <div class="layui-elem-quote" style="padding: 5px 0;">
-                        &nbsp;&nbsp;查询到设备总数：<span class="len"></span>
-                        &nbsp;&nbsp; &nbsp;&nbsp;<div id="demo11" style="display: inline-block;"></div>
-                    </div>
+                    <!--<div class="layui-elem-quote" style="padding: 5px 0;">-->
+                        <!--&nbsp;&nbsp;查询到设备总数：<span class="len"></span>-->
+                        <!--&nbsp;&nbsp; &nbsp;&nbsp;<div id="demo11" style="display: inline-block;"></div>-->
+                    <!--</div>-->
                 </div>
                 <!-- 点线图 -->
                 <div id="point_line_over" class="hide"  style="width: 600px;height:400px;">

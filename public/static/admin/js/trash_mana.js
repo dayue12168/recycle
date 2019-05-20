@@ -7,6 +7,8 @@ layui.use('element', function(){
   layui.use(["layer",'laypage'],function(){
       var layer = layui.layer,
           laypage = layui.laypage;
+
+
           laypage({
               cont: 'demo9'
               ,pages: 100 //总页数
@@ -267,10 +269,6 @@ layui.use('element', function(){
       //查找设备
       $('#JqueryDevice').click(function(){
         var val=$('input[name="sb_IMEI"]').val();
-        if(!val){
-            layer.msg('请输入设备IMEI号码');
-            return false;
-        }
         $.ajax({
            url:"/admin/index/getCapById",
             type:'post',
@@ -278,15 +276,22 @@ layui.use('element', function(){
             data:{'id':val},
             success:function(res){
                 var tbody=$('.Jcap');
-                var str='<tr><td style="display:none;">'+res.cap_id+'</td>' +
-                    '<td>'+res.cap_imei+'</td><td>'+res.cap_imsi+'</td>' +
-                    '<td>'+res.cap_serial+'</td><td>'+res.cap_type+'</td>' +
-                    '<td>'+res.cap_sim+'</td><td>'+res.cap_position+'</td>' +
-                    '<td><button type="button" class=" layui-btn layui-btn-danger layui-btn-mini bind_sb">绑定</button>' +
-                    '</td></tr>';
+                if(res.length>0){
+                    var str='';
+                    for(var i in res){
+                        str +='<tr><td style="display:none;">'+res[i].cap_id+'</td>' +
+                            '<td>'+res[i].cap_imei+'</td><td>'+res[i].cap_imsi+'</td>' +
+                            '<td>'+res[i].cap_serial+'</td><td>'+res[i].cap_type+'</td>' +
+                            '<td>'+res[i].cap_sim+'</td><td>'+res[i].cap_position+'</td>' +
+                            '<td><button type="button" class=" layui-btn layui-btn-danger layui-btn-mini bind_sb">绑定</button>' +
+                            '</td></tr>';
+                    }
+                }else{
+                    str='';
+                }
+
                 tbody.html(str);
             }
-
         });
       });
 

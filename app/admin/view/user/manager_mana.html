@@ -66,7 +66,7 @@
                         <td>{$val.wx_band}</td>
                         <td>
                             <button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_manager">修改</button>
-                            <button type="button" class="layui-btn layui-btn-danger layui-btn-small">解绑微信</button>
+                            <button type="button" class="layui-btn layui-btn-danger layui-btn-small " style="display:none">解绑微信</button>
                             <button type="button" class="layui-btn layui-btn-danger layui-btn-small reset_forbid">{if $val.state}启用{else}禁用{/if}</button>
                         </td>
                         <td>
@@ -76,10 +76,10 @@
                     {/foreach}
                 </tbody>
             </table> 
-            <div class="layui-elem-quote" style="padding: 5px 0;">
-                &nbsp;&nbsp;查询到管理员总数：<span class="len"></span>
-                &nbsp;&nbsp; &nbsp;&nbsp;<div id="demo5" style="display: inline-block;"></div>
-            </div>
+            <!--<div class="layui-elem-quote" style="padding: 5px 0;">-->
+                <!--&nbsp;&nbsp;查询到管理员总数：<span class="len"></span>-->
+                <!--&nbsp;&nbsp; &nbsp;&nbsp;<div id="demo5" style="display: inline-block;"></div>-->
+            <!--</div>-->
         </div>
     </div>   
 </body>

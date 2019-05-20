@@ -41,7 +41,6 @@
                     <th>姓名</th>
                     <th>手机号</th>
                     <th>区域</th>
-                    <th>绑定公众号</th>
                     <th>所属管理员</th>
                     <th>已绑垃圾桶</th>
                     <th>操作</th>
@@ -54,8 +53,7 @@
                         <td>{$val.worker_name}</td>
                         <td>{$val.tel}</td>
                         <td>{$val.area}-{$val.street}-{$val.group}</td>
-                        <td>{if $val.wx_bind}√{else}?{/if}</td>
-                        <td>{$val.user_name}</td>
+                        <td>{$val.user_name |default=''}</td>
                         <td>{$val.count}</td>
                         <td>
                             <button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>
@@ -68,10 +66,10 @@
                    
                 </tbody>
             </table> 
-            <div class="layui-elem-quote" style="padding: 5px 0;">
-                &nbsp;&nbsp;查询到设备总数：<span class="len"></span>
-                &nbsp;&nbsp; &nbsp;&nbsp;<div id="demo8" style="display: inline-block;"></div>
-            </div>
+            <!--<div class="layui-elem-quote" style="padding: 5px 0;">-->
+                <!--&nbsp;&nbsp;查询到设备总数：<span class="len"></span>-->
+                <!--&nbsp;&nbsp; &nbsp;&nbsp;<div id="demo8" style="display: inline-block;"></div>-->
+            <!--</div>-->
         </div>
     </div>   
 </body>
