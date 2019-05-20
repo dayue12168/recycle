@@ -139,8 +139,9 @@ class Api
     public function bigScreenTemp()
     {
     	  //垃圾桶位置清单
-        $sql='select max(longitude) as longitude,max(latitude) as latitude from jh_dustbin_info ';
+        $sql='select max(cap_id) as cap_id,max(longitude) as longitude,max(latitude) as latitude from jh_dustbin_info ';
         $sql.='where dustbin_state=0 group by dust_serial';
+
         $res=Db::query($sql);
         $result['dustbintotal']=count($res);
         $result['binlist']=$res;
@@ -154,7 +155,7 @@ class Api
 				$result['capoffline']=$res[0]['offline'];
 
 				//离线设备清单
-        $sql='select distinct jdi.longitude,jdi.latitude from jh_dustbin_info jdi join jh_cap jc on jc.cap_id=jdi.cap_id';
+        $sql='select distinct jdi.cap_id,jdi.longitude,jdi.latitude from jh_dustbin_info jdi join jh_cap jc on jc.cap_id=jdi.cap_id';
         $sql.=' where jdi.dustbin_state=0 and jc.cap_status=0 and jc.cap_isonline=1';
         $res=Db::query($sql);
         $result['offlinelist']=$res;
@@ -171,7 +172,7 @@ class Api
         $result['dust7']=$res[0]['dustnum7'];
 
         //满溢垃圾桶位置清单
-        $sql='select max(longitude) as longitude,max(latitude) as latitude from jh_dustbin_info ';
+        $sql='select max(cap_id) as cap_id,max(longitude) as longitude,max(latitude) as latitude from jh_dustbin_info ';
         $sql.='where dustbin_state=0 and dustbin_overflow=1 group by dust_serial';
         $res=Db::query($sql);
         $result['overflownum']=count($res);
