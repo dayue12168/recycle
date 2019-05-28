@@ -152,9 +152,15 @@ function onError(data) {
 
 
                     var markers = [];
+                    console.log(data);
                     for (var i=0;i<data.length;i++)
                     {
-                        markers[i] = {'icon':'/static/index/images/trash_unfull.png','position':data[i]};
+                    	console.log(data[i][2]);
+                    	if(data[i][2] == 0){
+	                        markers[i] = {'icon':'/static/index/images/trash_unfull.png','position':data[i]};
+                    	}else{
+	                        markers[i] = {'icon':'/static/index/images/trash_full.png','position':data[i]};
+                    	}
                     }
                    // var markers = [{
                    //      icon: '/static/index/images/trash_unfull.png',
