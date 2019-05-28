@@ -45,5 +45,6 @@ Route::get('res1', 'v1/OAuth/res1');
 Route::get('sso', 'v1/Api/sso');
 
 Route::get('auto_get_info', 'v1/Api/autogetinfo');
+Route::get('get_dust_info', 'admin/Index/getDustInfo');
 
 

@@ -323,4 +323,17 @@ class Index extends Base
         }
         return $res;
     }
+
+    // 获取垃圾桶坐标信息
+    public function getDustInfo(Request $request)
+    {
+        $data = Db::table('jh_dustbin_info')->where('dustbin_id','>',3)->field('latitude,longitude')->select();
+        $res = [];
+           foreach ($data as $key => $value) {
+           $res[] = array_values($value);
+               # code...
+           }
+
+        return json_encode($res);
+    }
 }
