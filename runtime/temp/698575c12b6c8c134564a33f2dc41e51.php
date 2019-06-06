@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1557110305;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1559010242;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,19 +137,42 @@ function onError(data) {
 }
 
 
-    // 添加事件监听, 使地图自适应显示到合适的范围
+  var ajax = new XMLHttpRequest();
+        //步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端
+        ajax.open('get','/get_dust_info');
+        //步骤三:发送请求
+        ajax.send();
+        //步骤四:注册事件 onreadystatechange 状态改变就会调用
+        ajax.onreadystatechange = function () {
+           if (ajax.readyState==4 &&ajax.status==200) {
+            //步骤五 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的
+        // 　　      console.log(ajax.responseText);//输入相应的内容
+                  var data = JSON.parse(ajax.responseText);
+                  // 添加事件监听, 使地图自适应显示到合适的范围
     AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
 
-        var markers = [{
-            icon: '/static/index/images/trash_unfull.png',
-            position: [121.480699,31.236858]
-        }, {
-            icon: '/static/index/images/trash_unfull.png',
-            position: [121.481699,31.239858]
-        }, {
-            icon: '/static/index/images/trash_full.png',
-            position: [121.498971,31.240019]
-        }];
+
+                    var markers = [];
+                    console.log(data);
+                    for (var i=0;i<data.length;i++)
+                    {
+                    	console.log(data[i][2]);
+                    	if(data[i][2] == 0){
+	                        markers[i] = {'icon':'/static/index/images/trash_unfull.png','position':data[i]};
+                    	}else{
+	                        markers[i] = {'icon':'/static/index/images/trash_full.png','position':data[i]};
+                    	}
+                    }
+                   // var markers = [{
+                   //      icon: '/static/index/images/trash_unfull.png',
+                   //      position: [121.905314,30.867764]
+                   //  }, {
+                   //      icon: '/static/index/images/trash_unfull.png',
+                   //      position: [121.905085,30.868008]
+                   //  }, {
+                   //      icon: '/static/index/images/trash_full.png',
+                   //      position: [121.498971,31.240019]
+                   //  }];
 
         // 添加一些分布不均的点到地图上,地图上添加三个点标记，作为参照
         markers.forEach(function(marker) {
@@ -162,6 +185,9 @@ function onError(data) {
         });
         var newCenter = map.setFitView();
     });
+
+          　　}
+        }
 
 
 </script>

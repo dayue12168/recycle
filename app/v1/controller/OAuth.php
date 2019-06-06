@@ -22,7 +22,7 @@ class OAuth extends Controller
 
     private function server()
     {
-        $pdo = new \PDO('mysql:host=rm-uf6qd1p0j4dv12t59vo.mysql.rds.aliyuncs.com;dbname=recycle', "recycle_admin", "QWER!@#$%4321");
+        $pdo = new \PDO('mysql:host=rm-uf6qd1p0j4dv12t59vo.mysql.rds.aliyuncs.com;dbname=recycle_aliyun', "recycle_admin", "QWER!@#$%4321");
 
         //创建存储的方式
         $storage = new \OAuth2\Storage\Pdo($pdo);

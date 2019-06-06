@@ -690,13 +690,27 @@ class Api
 	
 	function autogetinfo()
 	{
+		//http://101.132.132.197/auto_get_info
+		//读取所有设备
+		$sql="select jc.cap_imsi from jh_dustbin_info jdi join jh_cap jc on jdi.cap_id=jc.cap_id where dustbin_state=0 and cap_status=0";
+		$result=Db::query($sql);
+		for($i=0;$i<count($result);$i++)
+		{
+			//调用getAppThingProperties接口
+			$capdeviceName =$result[$i]["cap_imsi"];		//设备imei号
+			$dust=$this->getAppThingProperties($capdeviceName);
+			$dustres=json_decode($dust);
+			if(isset($dustres->data[6])){
+				$hexdata=$dustres->data[6]->value;	//读取lora传递的字符
+				echo $hexdata;	
+		  }
+		
+			echo "<br>";		
+		}
+		die("==");
 
 		//调用getAppThingProperties接口
-		$capdeviceName = '0A17100617109118';	//设备imei号
-		$dust=$this->getAppThingProperties($capdeviceName);
-		$dustres=json_decode($dust);
-		$hexdata=$dustres->data[6]->value;	//读取lora传递的字符
-echo $hexdata;
+
 		//定时读取垃圾监测信息
 		$dustdata["distance"]=hexdec(substr($hexdata,2,2));		//实测距离
 		$dustdata["template"]=hexdec(substr($hexdata,4,2));		//温度
