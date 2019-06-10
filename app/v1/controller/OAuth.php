@@ -121,7 +121,7 @@ class OAuth extends Controller
         $output = curl_exec($ch);
         //打印获得的数据
         $output = json_decode($output,true);
-        // print_r($output['access_token']);die();
+        // print_r($output);die();
 
         // 获取user_id,
         if(is_array($output)){
