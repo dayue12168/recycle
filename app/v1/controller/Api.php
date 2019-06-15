@@ -694,6 +694,7 @@ class Api
 		//读取所有设备
 		$sql="select jc.cap_imsi from jh_dustbin_info jdi join jh_cap jc on jdi.cap_id=jc.cap_id where dustbin_state=0 and cap_status=0";
 		$result=Db::query($sql);
+		//循环所有设备
 		for($i=0;$i<count($result);$i++)
 		{
 			//调用getAppThingProperties接口
@@ -702,16 +703,21 @@ class Api
 			$dustres=json_decode($dust);
 			if(isset($dustres->data[6])){
 				$hexdata=$dustres->data[6]->value;	//读取lora传递的字符
-				echo $hexdata;	
+				//echo $hexdata;	
+				$dustdata=$this->gethexinfo($hexdata,$capdeviceName);		//解析lora的字符串信息
+				print_r($dustdata);
 		  }
-		
 			echo "<br>";		
 		}
 		die("==");
-
-		//调用getAppThingProperties接口
-
-		//定时读取垃圾监测信息
+		//执行函数
+		$this->getcollectdata($dustdata);
+		
+	}
+	
+	//解析lora的字符串信息
+	function gethexinfo($hexdata,$capdeviceName)
+	{
 		$dustdata["distance"]=hexdec(substr($hexdata,2,2));		//实测距离
 		$dustdata["template"]=hexdec(substr($hexdata,4,2));		//温度
 		$dustdata["elec"]=hexdec(substr($hexdata,22,2));		//电量
@@ -731,13 +737,9 @@ class Api
 		$dustdata["updaterate"]=hexdec(substr($hexdata,32,2) . substr($hexdata,34,2));		//上报频率
 		$dustdata["data_type"]="1";		//数据来源（设备类型）
 		$dustdata["code"]=hexdec(substr($hexdata,14,4));		//流水号
-		print_r($dustdata);
-		die("=1");
-		//执行函数
-		$this->getcollectdata($dustdata);
-		
+		return $dustdata;
 	}
-	
+		
 	// 将 十六进制度分结构 转换成 标准坐标系格式
 	function HexToCoordinate($inputHex = '')
 	{
