@@ -11,7 +11,7 @@ layui.use('element', function(){
               ,groups: 5 //连续显示分页数
           });
   })
-  layui.use("form",function(){
+  layui.use("form",function(){ 
       var form = layui.form();
       
       form.render('checkbox');
@@ -25,6 +25,15 @@ layui.use('element', function(){
       laydate.render({
           elem:"input[name='endTime']",
       })
+    $(".timeBox").on("mouseout",function(){
+        var startTime = $("input[name='startTime']").val().length;
+        var endTime = $("input[name='endTime']").val().length;
+        if(startTime>0  && endTime > 0){
+            $(".searchBtn").removeClass("layui-btn-disabled");
+            $(".excel").removeClass("layui-btn-disabled");
+        }
+    })
+      
   });
   // <!-- 总数量 -->
   var len = $(".tbody>tr").length;     

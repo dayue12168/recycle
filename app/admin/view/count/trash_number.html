@@ -44,15 +44,15 @@
                     </div>
                 </div>
                 <div class="layui-inline" style="cursor: pointer;">
-                    <button class="layui-btn layui-btn-small" >查询<i class="layui-icon">&#xe615;</i></button>
-                    <button class="layui-btn layui-btn-small excel" >导出<i class="layui-icon">&#xe602;</i></button>
+                    <button class="layui-btn layui-btn-small layui-btn-disabled searchBtn" >查询<i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn layui-btn-small excel layui-btn-disabled " >导出<i class="layui-icon">&#xe602;</i></button>
                 </div>
 
             </div>
             <div class="layui-form-item flex-box flex-b">
                 <div class="layui-inline">
-                    <label class="layui-form-label">时间类型</label>
-                    <div class=" flex-box flex-b">
+                    <label class="layui-form-label">时间范围</label>
+                    <div class="flex-box flex-b timeBox">
                         <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" placeholder="开始时间">
                         <input type="text" name="endTime" lay-verify="required" readonly class="layui-input" placeholder="结束时间">
                     </div>
