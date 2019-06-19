@@ -33,7 +33,7 @@
         <div class="layui-form" action="">
             垃圾数量统计表
             <div class="layui-form-item flex-box flex-b">
-                <div class="layui-inline">
+                <div class="layui-inline" style="display: none">
                     <label class="layui-form-label">时间类型</label>
                     <div class=" flex-box flex-b">
                     <!-- <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" placeholder="开始时间">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="layui-inline" style="cursor: pointer;">
-                    <button class="layui-btn layui-btn-small layui-btn-disabled searchBtn" >查询<i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn layui-btn-small layui-btn-disabled searchBtn Jquery" >查询<i class="layui-icon">&#xe615;</i></button>
                     <button class="layui-btn layui-btn-small excel layui-btn-disabled " >导出<i class="layui-icon">&#xe602;</i></button>
                 </div>
 
@@ -52,9 +52,9 @@
             <div class="layui-form-item flex-box flex-b">
                 <div class="layui-inline">
                     <label class="layui-form-label">时间范围</label>
-                    <div class="flex-box flex-b timeBox">
-                        <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" placeholder="开始时间">
-                        <input type="text" name="endTime" lay-verify="required" readonly class="layui-input" placeholder="结束时间">
+                    <div class=" flex-box flex-b timeBox">
+                        <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" value="{$ctime}" placeholder="开始时间">
+                        <input type="text" name="endTime" lay-verify="required" readonly class="layui-input" value="{$etime}" placeholder="结束时间">
                     </div>
                 </div>
             </div>
@@ -134,15 +134,15 @@
                             </tr> 
                         </thead>
                         <tbody class="tbody">
-                            {volist name='roads' id='vo'}
+                            {volist name='res' id='vo'}
                             <tr>
-                                <td>{$citys[0]['area_name']}-{$regions[0]['area_name']}-{$vo.area_name}</td>
-                                <td>10日/3/10</td>
-                                <td>1000KG</td>
-                                <td>10KG</td>
-                                <td>100KG</td>
-                                <td>500KG</td>
-                                <td>1000KG</td>
+                                <td>{$vo.pro}-{$vo.city}-{$vo.district}</td>
+                                <td>{$vo.dust_date}</td>
+                                <td>{$vo.dust_num}</td>
+                                <td>{$vo.dust_num/12}</td>
+                                <td>{$vo.total}</td>
+                                <td>{$vo.total/7}</td>
+                                <td>{$vo.total/30}</td>
                             </tr>
                             {/volist}
                         </tbody>
