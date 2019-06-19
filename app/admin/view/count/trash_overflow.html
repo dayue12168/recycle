@@ -40,12 +40,12 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">时间范围</label>
                     <div class=" flex-box flex-b timeBox">
-                        <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" placeholder="开始时间" value="{$ctime}">
-                        <input type="text" name="endTime" lay-verify="required" readonly class="layui-input" placeholder="结束时间" value="{$etime}">
+                        <input type="text" name="startTime" lay-verify="required" readonly class="layui-input" placeholder="开始时间">
+                        <input type="text" name="endTime" lay-verify="required" readonly class="layui-input" placeholder="结束时间">
                     </div>
                 </div>
                 <div class="layui-inline " style="cursor: pointer;">
-                    <button class="layui-btn layui-btn-small Jquery layui-btn-disabled searchBtn">查询<i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn layui-btn-small layui-btn-disabled searchBtn">查询<i class="layui-icon">&#xe615;</i></button>
                     <button class="layui-btn layui-btn-small layui-btn-disabled excel">导出<i class="layui-icon">&#xe602;</i></button>
                 </div>
             </div>
@@ -128,13 +128,13 @@
                             </tr> 
                         </thead>
                         <tbody class="tbody">
-                        {volist name='res' id='vo'}
+                        {volist name='roads' id='vo'}
                         <tr>
-                            <td>{$vo.pro}-{$vo.city}-{$vo.district}</td>
-                            <td>1</td>
-                            <td>{$vo.total}</td>
-                            <td></td>
-                            <td>{$vo.total}</td>
+                            <td>{$citys[0]['area_name']}-{$regions[0]['area_name']}-{$vo.area_name}</td>
+                            <td>200</td>
+                            <td>1000KG</td>
+                            <td>10KG</td>
+                            <td>100KG</td>
                         </tr>
                         {/volist}
                         </tbody>
