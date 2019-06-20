@@ -52,8 +52,32 @@ layui.use('element', function(){
   }
 
 
+$(".Jquery").click(function(){
+    var ctime=$("input[name=startTime]").val();
+    var etime=$("input[name=endTime]").val();
+    $.ajax({
+        url:"/admin/count/queryOverflow",
+        type:"post",
+        data:{'ctime':ctime,'etime':etime},
+        success:function(res){
+            var tb=$(".tbody");
+            var str='';
+            for(var i in res){
+                str +='<tr><td>'+res[i].pro+'-'+res[i].city+'-'+res[i].district+
+                    '</td><td>1</td><td>'+res[i].total+
+                    '</td><td></td><td>'+res[i].total+
+                    '</td></tr>';
+            }
+            tb.html(str);
+        }
+    })
+});
+
 $(".excel").click(function(){
-    window.location.href='/admin/count/overflow_excel';
+    var ctime=$("input[name=startTime]").val();
+    var etime=$("input[name=endTime]").val();
+    window.location.href='/admin/count/overflow_excel?ctime='+ctime+"&etime="+etime;
+
 });
   
   

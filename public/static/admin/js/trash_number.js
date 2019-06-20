@@ -54,8 +54,30 @@ layui.use('element', function(){
 
 
   $(".excel").click(function(){
-      window.location.href='/admin/count/number_excel';
+      var ctime=$("input[name=startTime]").val();
+      var etime=$("input[name=endTime]").val();
+      window.location.href='/admin/count/number_excel?ctime='+ctime+"&etime="+etime;
   });
+$(".Jquery").click(function(){
+    var ctime=$("input[name=startTime]").val();
+    var etime=$("input[name=endTime]").val();
+    $.ajax({
+        url:"/admin/count/queryNumber",
+        type:"post",
+        data:{'ctime':ctime,'etime':etime},
+        success:function(res){
+            var tb=$(".tbody");
+            var str='';
+            for(var i in res){
+                str +='<tr><td>'+res[i].pro+'-'+res[i].city+'-'+res[i].district+
+                '</td><td>'+res[i].dust_date+'</td><td>'+res[i].dust_num+
+                    '</td><td>'+res[i].dust_num/12+'</td><td>'+res[i].total+
+                    '</td><td>'+res[i].total/7+'</td><td>'+res[i].total/30+'</td></tr>';
+            }
+            tb.html(str);
+        }
+    })
+});
   
   
   // <!-- tabnav切换 -->
