@@ -207,8 +207,8 @@ class Count extends Base
         foreach($res as $key=>$val){
             $key+=2;
             $PHPSheet->setCellValue("A".$key,$val['pro'].'-'.$val['city'].'-'.$val['district']);
-            $PHPSheet->setCellValue("B".$key,$val['total']);
-            $PHPSheet->setCellValue("C".$key,'');
+            $PHPSheet->setCellValue("B".$key,1);
+            $PHPSheet->setCellValue("C".$key,$val['total']);
             $PHPSheet->setCellValue("D".$key,'');
             $PHPSheet->setCellValue("E".$key,$val['total']);
         }
