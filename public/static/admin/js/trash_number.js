@@ -61,8 +61,6 @@ layui.use('element', function(){
 $(".Jquery").click(function(){
     var ctime=$("input[name=startTime]").val();
     var etime=$("input[name=endTime]").val();
-    alert(ctime+'---'+etime);
-    return false;
     $.ajax({
         url:"/admin/count/queryNumber",
         type:"post",
