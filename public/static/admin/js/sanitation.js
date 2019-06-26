@@ -37,22 +37,33 @@ layui.use('element', function(){
                       cache:false,
                       success:function(res){
                           // console.log(res);
-
                           var str='';
                           var tb=$("tbody.tbody");
+
+                          //有微信绑定
+                          // for(var i in res){
+                          //     if(res[i].wx_bind){
+                          //         var wx='√';
+                          //         var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
+                          //             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small wx_unbind">解绑微信</button>' +
+                          //             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
+                          //             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
+                          //     }else{
+                          //         var wx='?';
+                          //         var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
+                          //             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
+                          //             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
+                          //     }
+                          //     str+='<tr> <td style="display: none">'+res[i].worker_id+'</td><td>'+res[i].worker_name+'</td>' +
+                          //         '<td>'+res[i].tel+'</td><td>'+res[i].area+'-'+res[i].street+'-'+res[i].group+'</td>' +
+                          //         '<td>'+wx+'</td><td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
+                          //         '<td>'+button +'</td></tr>';
+                          // }
+
                           for(var i in res){
-                              if(res[i].wx_bind){
-                                  var wx='√';
-                                  var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
-                                      '<button type="button" class="layui-btn layui-btn-danger layui-btn-small wx_unbind">解绑微信</button>' +
+                              var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
                                       '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
                                       '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
-                              }else{
-                                  var wx='?';
-                                  var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
-                                      '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
-                                      '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
-                              }
                               str+='<tr> <td style="display: none">'+res[i].worker_id+'</td><td>'+res[i].worker_name+'</td>' +
                                   '<td>'+res[i].tel+'</td><td>'+res[i].area+'-'+res[i].street+'-'+res[i].group+'</td>' +
                                   '<td>'+wx+'</td><td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
@@ -60,10 +71,8 @@ layui.use('element', function(){
                           }
                           tb.append(str);
                           layer.msg('用户添加成功');
-
                       }
                   })
-  
                   layer.close(index);
               }
           })
@@ -126,18 +135,9 @@ layui.use('element', function(){
                  var str='';
                  var tb=$("tbody.tbody");
                  for(var i in res){
-                     if(res[i].wx_bind){
-                         var wx='√';
-                         var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
-                             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small wx_unbind">解绑微信</button>' +
+                     var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
                              '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
                              '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
-                     }else{
-                         var wx='?';
-                         var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
-                             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
-                             '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
-                     }
                      str+='<tr> <td style="display: none">'+res[i].worker_id+'</td><td>'+res[i].worker_name+'</td>' +
                          '<td>'+res[i].tel+'</td><td>'+res[i].area+'-'+res[i].street+'-'+res[i].group+'</td>' +
                          '<td>'+wx+'</td><td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
