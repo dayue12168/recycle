@@ -66,7 +66,7 @@ layui.use('element', function(){
                                       '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
                               str+='<tr> <td style="display: none">'+res[i].worker_id+'</td><td>'+res[i].worker_name+'</td>' +
                                   '<td>'+res[i].tel+'</td><td>'+res[i].area+'-'+res[i].street+'-'+res[i].group+'</td>' +
-                                  '<td>'+wx+'</td><td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
+                                  '<td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
                                   '<td>'+button +'</td></tr>';
                           }
                           tb.append(str);
@@ -140,7 +140,7 @@ layui.use('element', function(){
                              '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
                      str+='<tr> <td style="display: none">'+res[i].worker_id+'</td><td>'+res[i].worker_name+'</td>' +
                          '<td>'+res[i].tel+'</td><td>'+res[i].area+'-'+res[i].street+'-'+res[i].group+'</td>' +
-                         '<td>'+wx+'</td><td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
+                         '<td>'+res[i].user_name+'</td><td>'+res[i].count+'</td>' +
                          '<td>'+button +'</td></tr>';
                  }
                   tb.html(str);
