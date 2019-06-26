@@ -132,6 +132,7 @@ layui.use('element', function(){
               cache:false,
               data:{'addr':addr},
               success:function (res) {
+                 console.log(res);
                  var str='';
                  var tb=$("tbody.tbody");
                  for(var i in res){
