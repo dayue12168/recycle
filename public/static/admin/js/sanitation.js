@@ -61,6 +61,9 @@ layui.use('element', function(){
                           // }
 
                           for(var i in res){
+                              if(res[i].user_name===null){
+                                  res[i].user_name='';
+                              }
                               var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
                                       '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
                                       '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
@@ -136,6 +139,9 @@ layui.use('element', function(){
                  var str='';
                  var tb=$("tbody.tbody");
                  for(var i in res){
+                     if(res[i].user_name===null){
+                         res[i].user_name='';
+                     }
                      var button='<button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_sani">修改</button>' +
                              '<button type="button" class="layui-btn layui-btn-danger layui-btn-small trash_bind">垃圾桶绑定</button>' +
                              '<button type="button" class="layui-btn layui-btn-danger layui-btn-small worker_for">禁用</button>';
