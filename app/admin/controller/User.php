@@ -278,6 +278,18 @@ class User extends Base
         return json($data);
     }
 
+
+
+    //禁启用环卫工
+    public function huanToggle(Request $request)
+    {
+        $where['worker_id']=$request->param('id');
+        $data['state']=$request->param('state');
+        $jhUser=new JhWorkInfo();
+        $jhUser->save($data,$where);
+        return true;
+    }
+
     //环卫工密码加密
     protected function signPwd($pwd)
     {
