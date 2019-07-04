@@ -157,6 +157,7 @@ layui.use('element', function(){
 
       //禁用管理员
       $(".worker_for").click(function(){
+          alert('hello');
           var id=$(this).parent().siblings('td').eq(0).text();
           var temp=$(this).text();
           var forbid='禁用';
