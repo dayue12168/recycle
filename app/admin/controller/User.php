@@ -285,8 +285,8 @@ class User extends Base
     {
         $where['worker_id']=$request->param('id');
         $data['state']=$request->param('state');
-        $jhUser=new JhWorkInfo();
-        $jhUser->save($data,$where);
+        $jhWorkInfo=new JhWorkInfo();
+        $jhWorkInfo->save($data,$where);
         return true;
     }
 

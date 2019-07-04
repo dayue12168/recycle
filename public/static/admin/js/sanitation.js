@@ -157,23 +157,22 @@ layui.use('element', function(){
 
       //禁用管理员
       $(".worker_for").click(function(){
-          alert('hello');
           var id=$(this).parent().siblings('td').eq(0).text();
           var temp=$(this).text();
           var forbid='禁用';
           var use='启用';
           if(temp==forbid){
-              var status=1;
+              var state=1;
               temp=use;
           }else{
-              var status=0;
+              var state=0;
               temp=forbid;
           }
           var that=$(this);
           $.ajax({
               url:'/admin/user/huanToggle',
               type:'post',
-              data:{'id':id,'status':status},
+              data:{'id':id,'state':state},
               cache:false,
               success:function(res){
                   that.text(temp);
