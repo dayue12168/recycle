@@ -171,7 +171,7 @@ class User
     public function getWorkSql($where)
     {
         $sql='select case when isnull(dustbin_id) then	0 else count(*) end count,jiang.* ';
-        $sql.='from (select jwi.worker_id,jwi.tel,jwi.worker_name,jwi.wx_bind,ja1.area_name city,';
+        $sql.='from (select jwi.worker_id,jwi.tel,jwi.worker_name,jwi.wx_bind,jwi.state,ja1.area_name city,';
         $sql.='ja2.area_name area,ja3.area_name street,ja4.area_name `group`,ju.user_name,';
         $sql.='jb.dustbin_id from jh_work_info jwi join jh_area ja1 on jwi.area_id0=ja1.area_id ';
         $sql.='join jh_area ja2 on jwi.area_id1=ja2.area_id join jh_area ja3 on ';

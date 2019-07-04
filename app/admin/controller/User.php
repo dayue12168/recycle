@@ -90,6 +90,7 @@ class User extends Base
 
         $works=model('User','service')->getWorks($road);
 //        return $works;
+        dump($works);
         $this->assign('works',$works);
         return $this->fetch();
     }
