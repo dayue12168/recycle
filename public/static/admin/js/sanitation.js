@@ -170,7 +170,7 @@ layui.use('element', function(){
               temp=forbid;
           }
           var that=$(this);
-          console.log({'id':id,'state':state});
+          // console.log({'id':id,'state':state});
           $.ajax({
               url:'/admin/user/huanToggle',
               type:'post',
