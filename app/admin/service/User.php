@@ -178,7 +178,6 @@ class User
         $sql.='jwi.area_id2=ja3.area_id join jh_area ja4 on jwi.area_id3=ja4.area_id ';
         $sql.='left join jh_bind jb on jwi.worker_id=jb.worker_id left join jh_user ';
         $sql.='ju on jwi.belong_user_id=ju.user_id where '.$where.') jiang group by jiang.worker_id';
-//        return $sql;
         $res=Db::query($sql);
         return $res;
     }

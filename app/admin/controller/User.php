@@ -89,8 +89,6 @@ class User extends Base
         $this->assign('groups',$groups);
 
         $works=model('User','service')->getWorks($road);
-//        return $works;
-        dump($works);
         $this->assign('works',$works);
         return $this->fetch();
     }
