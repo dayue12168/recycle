@@ -169,6 +169,7 @@ layui.use('element', function(){
               temp=forbid;
           }
           var that=$(this);
+          alert({'id':id,'state':state});
           $.ajax({
               url:'/admin/user/huanToggle',
               type:'post',
