@@ -359,7 +359,8 @@ class Index extends Base
             ->join("jh_bind jb","jdi.dustbin_id=jb.dustbin_id")
             ->join("jh_work_info jwi","jb.worker_id=jwi.worker_id")
             ->field("jwi.worker_name")
-            ->where("jc.cap_imei=".$imei)
+            ->where("jc.cap_imei='".$imei."'")
+            ->fetchSql(true)
             ->select();
         return json($users);
     }
