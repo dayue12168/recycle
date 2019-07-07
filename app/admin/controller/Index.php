@@ -143,7 +143,7 @@ class Index extends Base
             ->field("jdi.dust_serial,jc.cap_imsi")
             ->select();
         //环卫工
-        $works=Db::table("jh_work_info")->field("worker_name")->select();
+        $works=Db::table("jh_work_info")->field("worker_id,worker_name")->select();
         $this->assign("works",$works);
         $this->assign('trashs',$trashs);
         $this->assign('citys',$citys);
@@ -358,10 +358,19 @@ class Index extends Base
             ->join("jh_dustbin_info jdi","jc.cap_id=jdi.cap_id")
             ->join("jh_bind jb","jdi.dustbin_id=jb.dustbin_id")
             ->join("jh_work_info jwi","jb.worker_id=jwi.worker_id")
-            ->field("jwi.worker_name")
+            ->field("jwi.worker_name,jwi.belong_user_id")
             ->where("jc.cap_imei='".$imei."'")
-            ->fetchSql(true)
             ->select();
         return json($users);
+    }
+
+    public function bind(Request $request)
+    {
+
+    }
+
+    public function trashByWorker(Request $request)
+    {
+
     }
 }

@@ -19,7 +19,14 @@ layui.use(['element','layer'], function(){
       var bind1 = $('.bind1').text().trim();
       var bind2 = $('.bind2').text().trim();
       if(bind1 && bind2 != ""){
-        layer.msg("绑定成功")
+        $.ajax({
+            url:"/admin/index/bind",
+            type:"post",
+            data:{},
+            success:function(data){
+                console.log(data);
+            }
+        })
       }
     })
 
@@ -46,7 +53,7 @@ layui.use(['element','layer'], function(){
             data:{"imei":imei},
             type:"post",
             success:function(data){
-                console.log(data);
+                console.log(data);//这里需要重新拼接数据
             }
         })
       var title = "垃圾桶编号:"+trash;
@@ -66,6 +73,10 @@ layui.use(['element','layer'], function(){
     })
     // 环卫工管理
     $(".hwManager").on('click',function(){
+        var worker_id=0;
+        // $.ajax({
+        //     url:"/admin/index/trashByWorker"
+        // });
       var title = "环卫工姓名"+$(this).parents("tr").find(".huanwei").text();
       var oTable = "";
       oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
@@ -81,4 +92,7 @@ layui.use(['element','layer'], function(){
       oTable += '</tbody></table>';
       managerInfo(title,oTable)
     })
+
+
+
 })
