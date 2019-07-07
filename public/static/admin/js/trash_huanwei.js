@@ -40,15 +40,18 @@ layui.use(['element','layer'], function(){
     // 垃圾桶管理
     $(".trashManager").on('click',function(){
         var trash = $(this).parents("tr").find(".trash_num").text();
+        var imei = $(this).parents("tr").find("td").eq(1).text();
+        alert(imei);
+        return false;
         $.ajax({
-            url:"/admin/index/getTrash",
+            url:"/admin/index/getTrashs",
             data:{"trash":trash},
             type:"post",
             success:function(data){
                 console.log(data);
             }
         })
-      var title = "垃圾桶编号"+trash;
+      var title = "垃圾桶编号:"+trash;
       var oTable = "";
       oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
       oTable += '<colgroup>';

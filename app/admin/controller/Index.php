@@ -352,6 +352,7 @@ class Index extends Base
     //获取垃圾桶绑定信息
     public function getTrashs(Request $request)
     {
-        return json($request->param());
+        $trsh=$request->param('trash');
+
     }
 }
