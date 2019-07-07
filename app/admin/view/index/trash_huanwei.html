@@ -18,15 +18,13 @@
 </head>
 
 <body> 
-    
-    <span class="layui-breadcrumb" lay-separator="/" >
+	<span class="layui-breadcrumb" lay-separator="/" >
         <a href="#">基本信息</a>
         <a href="#"> 垃圾桶-环卫工绑定</a>
     </span>
     <div class="topLine" >
         <div class="layui-form">
-
-        	<div class="layui-input-block flex-box flex-3" style="margin:10px 0;padding: 0;">
+			<div class="layui-input-block flex-box flex-3" style="margin:10px 0;padding: 0;">
                 {include file='common/address'/}
                 <select name="" id="" >
                     <option value="0"></option>
@@ -48,13 +46,19 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody class="tbody1 ">
-	                        <tr>
-	                            <td><a  class="trash_num" >123123</a> </td>
-	                            <td>123123</td>
-	                            <td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini trashManager">管理</button></td>
-	                        </tr>
-
-	                    </tbody>
+							{volist name="trashs" id="vo"}
+							<tr>
+								<td><a  class="trash_num" >{$vo.dust_serial}</a> </td>
+								<td>{$vo.cap_imsi}</td>
+								<td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini trashManager">管理</button></td>
+							</tr>
+							{/volist}
+<!--	                        <tr>-->
+<!--	                            <td><a  class="trash_num" >123123</a> </td>-->
+<!--	                            <td>123123</td>-->
+<!--	                            <td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini trashManager">管理</button></td>-->
+<!--	                        </tr>-->
+						</tbody>
 	                </table>
 	                
 	            </div>
@@ -73,10 +77,16 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody class="tbody2">
-	                        <tr>
-	                            <td><a class="huanwei">BBBB</a></td>
-	                            <td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini hwManager">管理</button></td>
-	                        </tr>
+							{volist name="works" id="vo"}
+							<tr>
+								<td><a class="huanwei">{$vo.worker_name}</a></td>
+								<td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini hwManager">管理</button></td>
+							</tr>
+							{/volist}
+<!--	                        <tr>-->
+<!--	                            <td><a class="huanwei">BBBB</a></td>-->
+<!--	                            <td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini hwManager">管理</button></td>-->
+<!--	                        </tr>-->
 	                    </tbody>
 	                </table>
 	            </div>

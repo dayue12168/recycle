@@ -136,10 +136,22 @@ class Index extends Base
         if(empty($groups)){
             $groups[]=array('area_id'=>-1,'area_name'=>'请选择');
         }
+
+        //获取垃圾桶
+        $trashs=Db::table("jh_dustbin_info")->alias("jdi")
+            ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
+            ->field("jdi.dust_serial,jc.cap_imsi")
+            ->select();
+        //环卫工
+        $works=Db::table("jh_work_info")->field("worker_name")->select();
+        $this->assign("works",$works);
+        $this->assign('trashs',$trashs);
         $this->assign('citys',$citys);
         $this->assign('regions',$regions);
         $this->assign('roads',$roads);
         $this->assign('groups',$groups);
+
+
         return $this->fetch();
     }
 
@@ -335,5 +347,11 @@ class Index extends Base
            }
 
         return json_encode($res);
+    }
+
+    //获取垃圾桶绑定信息
+    public function getTrashs(Request $request)
+    {
+        return json($request->param());
     }
 }

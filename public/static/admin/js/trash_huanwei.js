@@ -39,7 +39,16 @@ layui.use(['element','layer'], function(){
     }
     // 垃圾桶管理
     $(".trashManager").on('click',function(){
-      var title = "垃圾桶编号"+$(this).parents("tr").find(".trash_num").text();
+        var trash = $(this).parents("tr").find(".trash_num").text();
+        $.ajax({
+            url:"/admin/index/getTrash",
+            data:{"trash":trash},
+            type:"post",
+            success:function(data){
+                console.log(data);
+            }
+        })
+      var title = "垃圾桶编号"+trash;
       var oTable = "";
       oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
       oTable += '<colgroup>';
