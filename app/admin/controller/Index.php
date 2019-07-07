@@ -371,6 +371,14 @@ class Index extends Base
 
     public function trashByWorker(Request $request)
     {
-
+        $work=$request->param("worker_id");
+        $trashs=Db::table("jh_bind")
+            ->alias("jb")
+            ->join("jh_dustbin_info jdi","jb.dustbin_id=jdi.dustbin_id")
+            ->join("jh_cap jc","jc.cap_id=jdi.cap_id")
+            ->field("jdi.dust_serial,jc.cap_imei")
+            ->where("jb.woker_id=".$work)
+            ->select();
+        return json($trashs);
     }
 }

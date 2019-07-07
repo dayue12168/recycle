@@ -73,10 +73,15 @@ layui.use(['element','layer'], function(){
     })
     // 环卫工管理
     $(".hwManager").on('click',function(){
-        var worker_id=0;
-        // $.ajax({
-        //     url:"/admin/index/trashByWorker"
-        // });
+        var worker_id=$(this).parents("tr").find(".huanwei").attr("nid");
+        $.ajax({
+            url:"/admin/index/trashByWorker",
+            type:"post",
+            data:{"worker_id":worker_id},
+            success:function(data){
+                console.log(data);//这里要拼接垃圾桶
+            }
+        });
       var title = "环卫工姓名"+$(this).parents("tr").find(".huanwei").text();
       var oTable = "";
       oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
