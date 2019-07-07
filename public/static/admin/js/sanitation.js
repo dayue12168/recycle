@@ -184,6 +184,10 @@ layui.use('element', function(){
               }
           })
       })
+
+      $(".trash_bind").click(function(){
+          window.location.href="/admin/index/trash_huanwei";
+      })
   })
   var len = $(".tbody>tr").length;     
   $(".len").html(len);

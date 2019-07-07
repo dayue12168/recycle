@@ -369,6 +369,11 @@ class Index extends Base
 
     }
 
+    public function unbind(Request $request)
+    {
+
+    }
+
     public function trashByWorker(Request $request)
     {
         $work=$request->param("worker_id");
