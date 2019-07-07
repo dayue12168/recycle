@@ -41,11 +41,9 @@ layui.use(['element','layer'], function(){
     $(".trashManager").on('click',function(){
         var trash = $(this).parents("tr").find(".trash_num").text();
         var imei = $(this).parents("tr").find("td").eq(1).text();
-        alert(imei);
-        return false;
         $.ajax({
             url:"/admin/index/getTrashs",
-            data:{"trash":trash},
+            data:{"imei":imei},
             type:"post",
             success:function(data){
                 console.log(data);

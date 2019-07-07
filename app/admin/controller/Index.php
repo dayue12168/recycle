@@ -352,7 +352,15 @@ class Index extends Base
     //获取垃圾桶绑定信息
     public function getTrashs(Request $request)
     {
-        $trsh=$request->param('trash');
-
+        $imei=$request->param('imei');//传递的是设备imei号
+        $users=Db::table("jh_cap")
+            ->alias("jc")
+            ->join("jh_dustbin_info jdi","jc.cap_id=jdi.cap_id")
+            ->join("jh_bind jb","jdi.dustbin_id=jb.dustbin_id")
+            ->join("jh_work_info jwi","jb.worker_id=jwi.worker_id")
+            ->field("jwi.worker_name")
+            ->where("jc.cap_imei=".$imei)
+            ->select();
+        return json($users);
     }
 }
