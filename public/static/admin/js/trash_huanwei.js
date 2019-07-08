@@ -89,13 +89,14 @@ layui.use(['element','layer'], function(){
 				var loading = layer.load(1, {
 					shade: [0.1,'#fff'] //0.1透明度的白色背景
 				});
+		var that = $(this);
         $.ajax({
             url:"/admin/index/trashByWorker",
             type:"post",
             data:{"worker_id":worker_id},
             success:function(data){
 							layer.close(loading);
-							var title = "环卫工姓名"+$(this).parents("tr").find(".huanwei").text();
+							var title = "环卫工姓名"+that.parents("tr").find(".huanwei").text();
 							var oTable = "";
 							for(var i = 0 ; i< data.length; i++){
 								oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
