@@ -370,11 +370,12 @@ class Index extends Base
         $user=$request->param("user");
         $data['bind_time']=date("Y-m-d H:i:s",time());
         $data['worker_id']=$user;
-        $data['dustbin_id']=Db::table("jh_dustbin_info")->alias("jdi")
-        ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
-        ->value("jdi.dustbin_id")
-        ->fetchSql(true)
-        ->where("jc.cap_imei='".$trash."'");
+        $data['dustbin_id']=Db::table("jh_dustbin_info")
+            ->alias("jdi")
+            ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
+            ->value("jdi.dustbin_id")
+            ->fetchSql(true)
+            ->where("jc.cap_imei='".$trash."'");
         return json($data);
         Db::table("jh_bind")->save($data);
     }
