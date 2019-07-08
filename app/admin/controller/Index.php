@@ -379,7 +379,7 @@ class Index extends Base
             ->where("dustbin_id",$data['dustbin_id'])
             ->value("bind_id");
         if(!$exist){
-           return  Db::table("jh_bind")->insert($data);
+           return  Db::table("jh_bind")->insert($data)?'true':'false';
         }
         return 'false';
     }
