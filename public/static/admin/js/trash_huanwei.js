@@ -1,28 +1,36 @@
 layui.use(['element','layer'], function(){
     var layer   = layui.layer,
         element = layui.element;
-
+		
+	
+		
     // 绑定信息确认
-    function bindinfo(trash,obj){
+    var nid = null;
+	function bindinfo(trash,obj,nid){
       trash.on('click',function(){
         var trashNum = $(this).html();
         obj.html(trashNum);
+		if(nid !== null && nid !== undefined){
+			var nid = $(this).attr("nid");
+			
+		}
       })
     };
               
     var trash = $(".trash_num"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2");
     bindinfo(trash,bind1);
-    bindinfo(hwer,bind2);
+    bindinfo(hwer,bind2,"nid");
 
     // 绑定按钮
     $(".Bind").on('click',function(){
+		console.log(nid)
       var bind1 = $('.bind1').text().trim();
       var bind2 = $('.bind2').text().trim();
       if(bind1 && bind2 != ""){
         $.ajax({
             url:"/admin/index/bind",
             type:"post",
-            data:{"trash":bind1,"user":bind2},
+            data:{"trash":bind1,"user":bind2,"nid":nid},
             success:function(data){
                 console.log(data);
             }
