@@ -383,6 +383,7 @@ class Index extends Base
             ->join("jh_cap jc","jc.cap_id=jdi.cap_id")
             ->field("jdi.dust_serial,jc.cap_imei")
             ->where("jb.woker_id=".$work)
+            ->fetchSql(true)
             ->select();
         return json($trashs);
     }
