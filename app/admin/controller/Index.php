@@ -375,15 +375,13 @@ class Index extends Base
             ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
             ->where("jc.cap_imei='".$trash."'")
             ->value("jdi.dustbin_id");
-        $exist=Db::table("jh_bind")->where("worker_id".$data['worker_id'])
+        $exist=Db::table("jh_bind")->where("worker_id",$data['worker_id'])
             ->where("dustbin_id",$data['dustbin_id'])
-            ->fetchSql(true)
             ->value("bind_id");
-        dump($exist);
         if(!$exist){
            return  Db::table("jh_bind")->fetchSql(true)->save($data);
         }
-        return true;
+        return 'false';
     }
 
     public function unbind(Request $request)
