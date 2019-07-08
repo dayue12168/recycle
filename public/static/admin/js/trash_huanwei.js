@@ -22,7 +22,7 @@ layui.use(['element','layer'], function(){
         $.ajax({
             url:"/admin/index/bind",
             type:"post",
-            data:{},
+            data:{"trash":bind1,"user":bind2},
             success:function(data){
                 console.log(data);
             }
