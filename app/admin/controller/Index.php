@@ -381,7 +381,7 @@ class Index extends Base
             ->value("bind_id");
         dump($exist);
         if(!$exist){
-            Db::table("jh_bind")->fetchSql(true)->save($data);
+           return  Db::table("jh_bind")->fetchSql(true)->save($data);
         }
         return true;
     }
