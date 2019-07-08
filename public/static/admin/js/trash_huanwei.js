@@ -86,28 +86,36 @@ layui.use(['element','layer'], function(){
     // 环卫工管理
     $(".hwManager").on('click',function(){
         var worker_id=$(this).parents("tr").find(".huanwei").attr("nid");
+				var loading = layer.load(1, {
+					shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});
         $.ajax({
             url:"/admin/index/trashByWorker",
             type:"post",
             data:{"worker_id":worker_id},
             success:function(data){
-                console.log(data);//这里要拼接垃圾桶
+							layer.close(loading);
+							var title = "环卫工姓名"+$(this).parents("tr").find(".huanwei").text();
+							var oTable = "";
+							for(var i = 0 ; i< data.length; i++){
+								oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
+								oTable += '<colgroup>';
+								oTable += '<col width="130"><col width="130"><col width="130">';
+								oTable += '</colgroup>';         
+								oTable += '<thead >';
+								oTable += '<tr >';
+								oTable += '<th>垃圾桶编号</th><th>设备IMEI号</th><th>操作</th>';
+								oTable += '</tr></thead>';
+								oTable += '<tbody >';
+								oTable += '<tr><td>'+data[i].dust_serial+'</td><td>'+data[i].cap_imei+'</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_trash">解绑</button></td></tr>';
+								oTable += '</tbody></table>';
+							}
+              
+              managerInfo(title,oTable)
             }
         });
-      var title = "环卫工姓名"+$(this).parents("tr").find(".huanwei").text();
-      var oTable = "";
-      oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
-      oTable += '<colgroup>';
-      oTable += '<col width="130"><col width="130"><col width="130">';
-      oTable += '</colgroup>';         
-      oTable += '<thead >';
-      oTable += '<tr >';
-      oTable += '<th>垃圾桶编号</th><th>设备IMEI号</th><th>操作</th>';
-      oTable += '</tr></thead>';
-      oTable += '<tbody >';
-      oTable += '<tr><td>123123</td><td>123123</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_trash">解绑</button></td></tr>';
-      oTable += '</tbody></table>';
-      managerInfo(title,oTable)
+      
+      
     })
 
 
