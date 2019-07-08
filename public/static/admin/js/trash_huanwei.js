@@ -44,32 +44,43 @@ layui.use(['element','layer'], function(){
         }
       })
     }
+		// 生成table 弹窗
+		function oTable(){
+			return 
+		}
     // 垃圾桶管理
     $(".trashManager").on('click',function(){
         var trash = $(this).parents("tr").find(".trash_num").text();
         var imei = $(this).parents("tr").find("td").eq(1).text();
+				var loading = layer.load(1, {
+					shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});
         $.ajax({
             url:"/admin/index/getTrashs",
             data:{"imei":imei},
             type:"post",
             success:function(data){
-                console.log(data);//这里需要重新拼接数据
+							console.log(data.worker_name)
+								layer.close(loading);
+								var title = "垃圾桶编号:"+trash;
+								var oTable = "";
+                oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
+                oTable += '<colgroup>';
+                oTable += '<col width="130"><col width="130"><col width="130">';
+                oTable += '</colgroup>';         
+                oTable += '<thead >';
+                oTable += '<tr >';
+                oTable += '<th>环卫工姓名</th><th>所属班组</th><th>操作</th>';
+                oTable += '</tr></thead>';
+                oTable += '<tbody >';
+                oTable += '<tr><td>'+data.worker_name+'</td><td>'+data.belong_user_id+'</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_hw">解绑</button></td></tr>';
+                oTable += '</tbody></table>';
+								managerInfo(title,oTable)
             }
         })
-      var title = "垃圾桶编号:"+trash;
-      var oTable = "";
-      oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
-      oTable += '<colgroup>';
-      oTable += '<col width="130"><col width="130"><col width="130">';
-      oTable += '</colgroup>';         
-      oTable += '<thead >';
-      oTable += '<tr >';
-      oTable += '<th>环卫工姓名</th><th>所属班组</th><th>操作</th>';
-      oTable += '</tr></thead>';
-      oTable += '<tbody >';
-      oTable += '<tr><td>123123</td><td>123123</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_hw">解绑</button></td></tr>';
-      oTable += '</tbody></table>';
-      managerInfo(title,oTable)
+      
+
+      
     })
     // 环卫工管理
     $(".hwManager").on('click',function(){
