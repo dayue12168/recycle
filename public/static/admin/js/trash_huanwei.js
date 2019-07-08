@@ -63,19 +63,19 @@ layui.use(['element','layer'], function(){
 							layer.close(loading);
 							var title = "垃圾桶编号:"+trash;
 							var oTable = "";
+							oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
+							oTable += '<colgroup>';
+							oTable += '<col width="130"><col width="130"><col width="130">';
+							oTable += '</colgroup>';         
+							oTable += '<thead >';
+							oTable += '<tr >';
+							oTable += '<th>环卫工姓名</th><th>所属班组</th><th>操作</th>';
+							oTable += '</tr></thead>';
+							oTable += '<tbody >';
 							for(var i = 0; i< data.length; i++){
-								oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
-								oTable += '<colgroup>';
-								oTable += '<col width="130"><col width="130"><col width="130">';
-								oTable += '</colgroup>';         
-								oTable += '<thead >';
-								oTable += '<tr >';
-								oTable += '<th>环卫工姓名</th><th>所属班组</th><th>操作</th>';
-								oTable += '</tr></thead>';
-								oTable += '<tbody >';
 								oTable += '<tr><td>'+data[i].worker_name+'</td><td>'+data[i].belong_user_id+'</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_hw">解绑</button></td></tr>';
-								oTable += '</tbody></table>';
-							}
+								}
+							oTable += '</tbody></table>';
 							managerInfo(title,oTable)
             }
         })
@@ -98,20 +98,19 @@ layui.use(['element','layer'], function(){
 							layer.close(loading);
 							var title = "环卫工姓名"+that.parents("tr").find(".huanwei").text();
 							var oTable = "";
+							oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
+							oTable += '<colgroup>';
+							oTable += '<col width="130"><col width="130"><col width="130">';
+							oTable += '</colgroup>';         
+							oTable += '<thead >';
+							oTable += '<tr >';
+							oTable += '<th>垃圾桶编号</th><th>设备IMEI号</th><th>操作</th>';
+							oTable += '</tr></thead>';
+							oTable += '<tbody >';
 							for(var i = 0 ; i< data.length; i++){
-								oTable += '<table class="layui-table oTable1" style="margin-top: 0">';
-								oTable += '<colgroup>';
-								oTable += '<col width="130"><col width="130"><col width="130">';
-								oTable += '</colgroup>';         
-								oTable += '<thead >';
-								oTable += '<tr >';
-								oTable += '<th>垃圾桶编号</th><th>设备IMEI号</th><th>操作</th>';
-								oTable += '</tr></thead>';
-								oTable += '<tbody >';
 								oTable += '<tr><td>'+data[i].dust_serial+'</td><td>'+data[i].cap_imei+'</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-mini unbind_trash">解绑</button></td></tr>';
-								oTable += '</tbody></table>';
 							}
-              
+							oTable += '</tbody></table>';
               managerInfo(title,oTable)
             }
         });
