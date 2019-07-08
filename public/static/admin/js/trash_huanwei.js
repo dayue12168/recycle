@@ -10,13 +10,14 @@ layui.use(['element','layer'], function(){
 			trash.on('click',function(){
 			  var trashNum = $(this).html();
 			  obj.html(trashNum);
+				var _nid = $(this).attr("nid")
+			  nid.html(_nid)
 			})
 		}else{
 			trash.on('click',function(){
 			  var trashNum = $(this).parents("tr").find(".Imei").html();
 			  obj.html(trashNum);
-				var _nid = $(this).attr("nid")
-				nid.html(_nid)
+			
 			})
 		}
       
