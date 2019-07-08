@@ -14,9 +14,9 @@ layui.use(['element','layer'], function(){
       })
     };
               
-    var trash = $(".trash_num"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2");
+    var trash = $(".trash_num"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2"),nid = $(".nid");
     bindinfo(trash,bind1);
-    bindinfo(hwer,bind2);
+    bindinfo(hwer,bind2,nid);
 
     // 绑定按钮
     $(".Bind").on('click',function(){
