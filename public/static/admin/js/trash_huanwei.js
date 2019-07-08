@@ -11,7 +11,7 @@ layui.use(['element','layer'], function(){
         var trashNum = $(this).html();
         obj.html(trashNum);
 		if(nid !== null && nid !== undefined){
-			var nid = $(this).attr("nid");
+			nid = $(this).attr("nid");
 			
 		}
       })
