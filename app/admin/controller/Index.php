@@ -376,9 +376,12 @@ class Index extends Base
             ->where("jc.cap_imei='".$trash."'")
             ->value("jdi.dustbin_id");
         $exist=Db::table("jh_bind")->where("worker_id".$data['worker_id'])
-            ->where("dustbin_id",$data['dustbin_id'])->value("bind_id");
+            ->where("dustbin_id",$data['dustbin_id'])
+            ->fetchSql(true)
+            ->value("bind_id");
+        dump($exist);
         if(!$exist){
-            Db::table("jh_bind")->save($data);
+            Db::table("jh_bind")->fetchSql(true)->save($data);
         }
         return true;
     }
