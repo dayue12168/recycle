@@ -370,13 +370,17 @@ class Index extends Base
         $user=$request->param("user");
         $data['bind_time']=date("Y-m-d H:i:s",time());
         $data['worker_id']=$user;
-        $data['dustbin_id']=Db::table("jh_dustbin_info")->alias("jdi")
-        ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
-        ->value("jdi.dustbin_id")
-        ->fetchSql(true)
-        ->where("jc.cap_imei='".$trash."'");
-        return json($data);
-        Db::table("jh_bind")->save($data);
+        $data['dustbin_id']=Db::table("jh_dustbin_info")
+            ->alias("jdi")
+            ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
+            ->where("jc.cap_imei='".$trash."'")
+            ->value("jdi.dustbin_id");
+        $exist=Db::table("jh_bind")->where("worker_id".$data['worker_id'])
+            ->where("dustbin_id",$data['dustbin_id'])->value("bind_id");
+        if(!$exist){
+            Db::table("jh_bind")->save($data);
+        }
+        return true;
     }
 
     public function unbind(Request $request)
