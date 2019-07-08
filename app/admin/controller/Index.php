@@ -374,7 +374,6 @@ class Index extends Base
             ->alias("jdi")
             ->join("jh_cap jc","jdi.cap_id=jc.cap_id")
             ->value("jdi.dustbin_id")
-            ->fetchSql(true)
             ->where("jc.cap_imei='".$trash."'");
         return json($data);
         Db::table("jh_bind")->save($data);
