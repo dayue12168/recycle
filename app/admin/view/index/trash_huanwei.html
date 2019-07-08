@@ -49,7 +49,7 @@
 							{volist name="trashs" id="vo"}
 							<tr>
 								<td><a  class="trash_num" >{$vo.dust_serial}</a> </td>
-								<td>{$vo.cap_imsi}</td>
+								<td class="Imei">{$vo.cap_imsi}</td>
 								<td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini trashManager">管理</button></td>
 							</tr>
 							{/volist}
@@ -101,6 +101,7 @@
 		</p>
 		<p>
 			已选环卫：<span class="bin bind2"></span>
+						<span class="nid" style="display: none;"></span>
 		</p>
 		<p class="flex-box flex-c">
 			<button type="button" class="layui-btn layui-btn-danger layui-btn-mini Bind" >绑定</button>
