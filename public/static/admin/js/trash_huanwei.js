@@ -5,18 +5,26 @@ layui.use(['element','layer'], function(){
 	
 		
     // 绑定信息确认
-	function bindinfo(trash,obj,nid){
-      trash.on('click',function(){
-        var trashNum = $(this).html();
-        obj.html(trashNum);
-		var _nid = $(this).attr("nid")
-		nid.html(_nid)
-      })
+	function bindinfo(trash,obj,nid,i){
+		if(i == 2){
+			trash.on('click',function(){
+			  var trashNum = $(this).html();
+			  obj.html(trashNum);
+			})
+		}else{
+			trash.on('click',function(){
+			  var trashNum = $(this).parents("tr").find(".Imei").html();
+			  obj.html(trashNum);
+				var _nid = $(this).attr("nid")
+				nid.html(_nid)
+			})
+		}
+      
     };
               
     var trash = $(".trash_num"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2"),nid = $(".nid");
-    bindinfo(trash,bind1);
-    bindinfo(hwer,bind2,nid);
+    bindinfo(trash,bind1,null,1);
+    bindinfo(hwer,bind2,nid,2);
 
     // 绑定按钮
     $(".Bind").on('click',function(){
