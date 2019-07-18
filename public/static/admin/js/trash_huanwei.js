@@ -6,16 +6,19 @@ layui.use(['element','layer'], function(){
 		
     // 绑定信息确认
 	function bindinfo(trash,obj,nid,i){
+
+    // trashNum_tr
 		if(i == 2){
 			trash.on('click',function(){
-			  var trashNum = $(this).html();
+			  var trashNum = $(".trash_num").html();
 			  obj.html(trashNum);
-				var _nid = $(this).attr("nid")
+				var _nid = $(this).find(".huanwei").attr("nid")
 			  nid.html(_nid)
 			})
 		}else{
+      // huanwei_tr
 			trash.on('click',function(){
-			  var trashNum = $(this).parents("tr").find(".Imei").html();
+			  var trashNum = $(this).find(".Imei").html();
 			  obj.html(trashNum);
 			
 			})
@@ -23,7 +26,7 @@ layui.use(['element','layer'], function(){
       
     };
               
-    var trash = $(".trash_num"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2"),nid = $(".nid");
+    var trash = $(".trashNum_tr"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2"),nid = $(".nid");
     bindinfo(trash,bind1,null,1);
     bindinfo(hwer,bind2,nid,2);
 

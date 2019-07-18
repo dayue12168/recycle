@@ -47,7 +47,7 @@
 	                    </thead>
 	                    <tbody class="tbody1 ">
 							{volist name="trashs" id="vo"}
-							<tr>
+							<tr class="trashNum_tr">
 								<td><a  class="trash_num" >{$vo.dust_serial}</a> </td>
 								<td class="Imei">{$vo.cap_imsi}</td>
 								<td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini trashManager">管理</button></td>
@@ -78,7 +78,7 @@
 	                    </thead>
 	                    <tbody class="tbody2">
 							{volist name="works" id="vo"}
-							<tr>
+							<tr class="huanwei_tr">
 								<td><a class="huanwei" nid="{$vo.worker_id}">{$vo.worker_name}</a></td>
 								<td>1<button type="button" class="layui-btn  layui-btn-radius layui-btn-normal layui-btn-mini hwManager">管理</button></td>
 							</tr>
