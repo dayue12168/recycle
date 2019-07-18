@@ -45,8 +45,8 @@ layui.use(['element','layer'], function(){
                 // console.log(data);
                 if(data !== false){
                   layer.msg("绑定成功！");
-                  bind1.html("");
-                  bind2.html("");
+                  $(".bind1").html("");
+                  $(".bind2").html("");
                 }
             }
         })
