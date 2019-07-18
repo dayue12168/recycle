@@ -11,7 +11,14 @@
     <style>
        a:hover{cursor: pointer;color: #1e9fff}
 
-        .bind_info{min-width: 10%;position: fixed;right: 20px;top: 200px;border:1px solid #999;padding: 15px;}
+        
+		@media only screen and (min-width: 1360px) {
+			.bind_info{min-width: 10%;position: fixed;right: 15%;top: 200px;border:1px solid #999;padding: 15px;}
+		}
+		@media only screen and (max-width: 1359px) {
+			.bind_info{min-width: 10%;position: fixed;right: 20px;top: 200px;border:1px solid #999;padding: 15px;}
+		}
+		
         .bind_info p{margin:10px 0}
         .bind_info .bin{color: #35A9FF}
     </style>

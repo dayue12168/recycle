@@ -26,7 +26,7 @@ layui.use(['element','layer'], function(){
       
     };
               
-    var trash = $(".trashNum_tr"),bind1 = $(".bind1"),hwer = $(".huanwei"),bind2 = $(".bind2"),nid = $(".nid");
+    var trash = $(".trashNum_tr"),bind1 = $(".bind1"),hwer = $(".huanwei_tr"),bind2 = $(".bind2"),nid = $(".nid");
     bindinfo(trash,bind1,null,1);
     bindinfo(hwer,bind2,nid,2);
 
