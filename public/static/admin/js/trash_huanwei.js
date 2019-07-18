@@ -42,7 +42,12 @@ layui.use(['element','layer'], function(){
             type:"post",
             data:{"trash":bind1,"user":nid},
             success:function(data){
-                console.log(data);
+                // console.log(data);
+                if(data !== false){
+                  layer.msg("绑定成功！");
+                  bind1.html("");
+                  bind2.html("");
+                }
             }
         })
       }
