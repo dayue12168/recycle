@@ -170,8 +170,8 @@ class Count extends Base
         }
 
 
-        $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel,"Excel5");//创建生成的格式
-        header('Content-Disposition: attachment;filename="垃圾数量统计.xls"');//下载下来的表格名
+        $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel,"Excel2007");//创建生成的格式
+        header('Content-Disposition: attachment;filename="垃圾数量统计.xlsx"');//下载下来的表格名
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xls文件
     }
@@ -212,8 +212,8 @@ class Count extends Base
             $PHPSheet->setCellValue("D".$key,'');
             $PHPSheet->setCellValue("E".$key,$val['total']);
         }
-        $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel,"Excel5");//创建生成的格式
-        header('Content-Disposition: attachment;filename="垃圾溢出统计.xls"');//下载下来的表格名
+        $PHPWriter = \PHPExcel_IOFactory::createWriter($PHPExcel,"Excel2007");//创建生成的格式
+        header('Content-Disposition: attachment;filename="垃圾溢出统计.xlsx"');//下载下来的表格名
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         $PHPWriter->save("php://output"); //表示在$path路径下面生成demo.xls文件
     }
