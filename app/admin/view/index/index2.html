@@ -179,7 +179,8 @@ function onError(data) {
                 map: map,
                 icon: marker.icon,
                 position: [marker.position[0], marker.position[1]],
-                offset: new AMap.Pixel(-13, -30)
+                offset: new AMap.Pixel(-13, -30),
+                content: '<div>我是说明文字</div>'
             });
         });
         var newCenter = map.setFitView();
