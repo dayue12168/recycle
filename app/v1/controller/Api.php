@@ -490,7 +490,8 @@ class Api
 		//		dustbin_overflow---上次溢出状态（0未溢出，1溢出）,dustbin_lastgather---最后一次数据采集时间,cap_id--设备表id,dustbin_id---垃圾桶id
 		//    last_data_id--上次采集数据的记录id,new_data_id--本次采集数据的记录id
 
-		$code=$dustdata["code"];			//流水号
+		$code=$dustdata["imei"];			//流水号
+		$this->writelog("开始处理数据：".$dustdata["originaldata"],$code);
 		//1.读取基本信息
 		$sql="select jc.cap_id,jbi.dust_length,jbi.dust_width,dustbin_dustnum,dustbin_overflow,dustbin_lastgather,dustbin_id ";
 		$sql.=" from jh_cap jc join jh_dustbin_info jbi on jc.cap_id=jbi.cap_id ";
@@ -499,6 +500,7 @@ class Api
 
 		if(!$result){return $this->returnerror("基础数据读取错误");}else{$this->writelog("读取基本信息完成",$code);}
 		$row=$result[0];
+
 		$dustdata["cap_id"]=$row["cap_id"];
 		$dustdata["dustbin_id"]=$row["dustbin_id"];
 		$dustdata["dust_length"]=$row["dust_length"];
@@ -516,9 +518,10 @@ class Api
 		$sql="select ifnull(max(data_id),0) id from jh_data where cap_id=".$row["cap_id"];
 		$result=Db::query($sql);
 		if(!$result){$dustdata["last_data_id"]=0;}else{$dustdata["last_data_id"]=$result[0]["id"];}
-			echo $dustdata["last_data_id"];
-			die("-");
-			
+
+		
+
+		
 		//2.存入上报数据记录
 		$dustdata["update_time"]=date('Y-m-d H:i:s');
 		$sql="insert into jh_data(cap_imei,dustbin_id,cap_id,distance,dust_height,dustnum,template,electric,`signal`,`code`,";
@@ -528,19 +531,20 @@ class Api
 		$sql.=",".$dustdata["template"].",".$dustdata["elec"].",".$dustdata["Signal"];
 		$sql.=",'".$dustdata["code"]."',".$dustdata["data_type"].",'".$dustdata["gather_time"];
 		$sql.="','".$dustdata["upload_time"]."','".$dustdata["update_time"]."',0,'',".$dustdata["last_data_id"].",0)";
-	
-		$result=$db->query($sql);
-		if(!$result){return returnerror("上报数据保存错误");}else{writelog("上报数据保存完成",$code);}
-	
+
+		$result=Db::execute($sql);
+
+		if(!$result){return returnerror("上报数据保存错误");}else{$this->writelog("上报数据保存完成",$code);}
+
 		//读取新纪录id
-		$dustdata["new_data_id"]=mysqli_insert_id($db);
-		
+		$dustdata["new_data_id"]=Db::getLastInsID();
+
 		//3.更新垃圾桶信息表
 		$sql="update jh_dustbin_info set dustbin_dustnum=".$dustdata["dustnum"].",dustbin_lastgather='";
 		$sql.=$dustdata["gather_time"]."' where dustbin_id=".$dustdata["dustbin_id"];
-		$result=$db->query($sql);
-		if(!$result){return returnerror("更新垃圾桶数据保存错误");}else{writelog("更新垃圾桶数据保存完成",$code);}
-		
+		$result=Db::execute($sql);
+		if(!$result){return $this->returnerror("更新垃圾桶数据保存错误");}else{$this->writelog("更新垃圾桶数据保存完成",$code);}
+
 		//4.垃圾溢出校验及数据处理
 		//4.1 判断当前溢出状态:垃圾高度大于安装高度的90%则认为溢出
 		$isoverflow=0;
@@ -553,7 +557,7 @@ class Api
 		if($dustdata["dustbin_overflow"]==1){
 			$sql="select overflow_id,overflow_time,overflow_num_time,overflow_dustnum from jh_overflow where dustbin_id=".$dustdata["dustbin_id"];
 			$sql.=" and ifnull(recovery_id,0)=0 order by overflow_id desc limit 1";
-			$result=$db->query($sql);
+			$result=Db::query($sql);
 			$overflowrow=$result->fetch_assoc();
 			if(!$overflowrow){
 				//没有数据则更新为未溢出状态
@@ -569,12 +573,13 @@ class Api
 			$overflownum=(strtotime($dustdata["gather_time"])-strtotime($overflowrow["overflow_num_time"]))/3600*$dustperhour;
 			$sql="update jh_overflow set overflow_num_time='".$dustdata["gather_time"]."',overflow_dustnum=overflow_dustnum+";
 			$sql.=$overflownum." where overflow_id=".$overflowrow["overflow_id"];
-			$result=$db->query($sql);
+			$result=Db::execute($sql);
 			
 			//更新上报数据记录表，记录溢出id
 			$sql="update jh_data set overflow_id=".$overflowrow["overflow_id"]." where data_id=".$dustdata["new_data_id"];
-			$result=$db->query($sql);
+			$result=Db::execute($sql);
 		}
+
 	
 		//4.1.2 如果之前未溢出，现在溢出：估算溢出数量，更新最新溢出数据
 		if($dustdata["dustbin_overflow"]==0 && $isoverflow==1){
@@ -589,11 +594,11 @@ class Api
 			//添加溢出记录
 			$sql="insert into jh_overflow(dustbin_id,overflow_time,overflow_dustnum,overflow_num_time)values(";
 			$sql.=$dustdata["dustbin_id"].",'".$dustdata["gather_time"]."',".$thisoverflownum.",".$thisoverflownum.")";
-			$result=$db->query($sql);
+			$result=Db::execute($sql);
 			$newoverflowid=mysqli_insert_id($db);
 			//更新上报数据记录表，记录溢出id
 			$sql="update jh_data set overflow_id=".$overflowrow["overflow_id"]." where data_id=".$dustdata["new_data_id"];
-			$result=$db->query($sql);
+			$result=Db::execute($sql);
 		}	
 		//4.1.3 如果之前溢出，现在未溢出：溢出结束，关闭溢出记录---该部分在回收数据处理
 	
@@ -618,17 +623,18 @@ class Api
 			//添加回收记录
 			$sql="insert into jh_recovery(dustbin_id,recovery_datetime,recovery_num)values(";
 			$sql.=$dustdata["dustbin_id"].",'".$dustdata["gather_time"]."',".$recyclenum.")";
-			$result=$db->query($sql);;	
+			$result=Db::execute($sql);;	
 			//回收记录id
 			$newrecoveryid=mysqli_insert_id($db);
 			//接4.1.3 如果之前溢出，现在未溢出：溢出结束，关闭溢出记录
 			if($dustdata["dustbin_overflow"]==1){
 				$sql="update jh_overflow set overflow_recovery_time='".$dustdata["gather_time"]."',recovery_id=";
 				$sql.=$newrecoveryid." where overflow_id=".$overflowrow["overflow_id"];
-				$result=$db->query($sql);
+				$result=Db::execute($sql);
 			}
 		}
-	
+
+		
 		//6.存入垃圾数量数据表
 		if($isoverflow==1){
 			//溢出状态
@@ -641,29 +647,31 @@ class Api
 		$gatherhour=intval(date("H",strtotime($dustdata["gather_time"])))+1;
 		$sql="select ifnull(max(id),0) id from jh_rubbish_record where dustbin_id=".$dustdata["dustbin_id"];
 		$sql.=" and dust_date='".date("Y-m-d",strtotime($dustdata["gather_time"]))."'";
-		$result=$db->query($sql);
-		$row=$result->fetch_assoc();
+		$result=Db::query($sql);
+		$row=$result[0];
 		if(!$row || $row["id"]==0){
 			//没有数据则新增
 			$sql="insert into jh_rubbish_record(dustbin_id,dust_date)values(".$dustdata["dustbin_id"];
 			$sql.=",'".date("Y-m-d",strtotime($dustdata["gather_time"]))."')";
-			$result=$db->query($sql);
-			$recordid=mysqli_insert_id($db);
+			$result=Db::execute($sql);
+			$recordid=Db::getLastInsID();
 		}else{
 			$recordid=$row["id"];
 		}
+
 		//更新数据
 		$sql="update jh_rubbish_record set dust_num=dust_num+".$thisrubbishnum.",dust_gcount=dust_gcount+1,";
 		$sql.="dust_num".$gatherhour."=dust_num".$gatherhour."+".$thisrubbishnum.",dust_gcount";
 		$sql.=$gatherhour."=dust_gcount".$gatherhour."+1 where dustbin_id=".$dustdata["dustbin_id"];
 		$sql.=" and dust_date='".date("Y-m-d",strtotime($dustdata["gather_time"]))."'";
-		$result=$db->query($sql);
-		
+		$result=Db::execute($sql);
+
 		//7.更新上报数据表相关字段状态
 		$calctime=time()-$startruntime;
 		$sql="update jh_data set state=1,last_data_id=".$dustdata["last_data_id"].",calctime=".$calctime;
-		$sql.=" where =".$dustdata["new_data_id"];
-		$result=$db->query($sql);
+		$sql.=" where data_id=".$dustdata["new_data_id"];
+		$result=Db::execute($sql);
+
 	echo "耗时：".($calctime);
 		return true;
 	
@@ -685,7 +693,7 @@ class Api
 	function writelog($info,$code)
 	{
 		//读取垃圾监测信息日志
-		$this->logWrite(date("YmdH")."-collectdata.txt", $code."---".$info."\r\n");
+		$this->logWrite(date("Ymd")."-collectdata.txt", $code."---".$info."\r\n");
 	}
 	
 	function autogetinfo()
@@ -703,21 +711,22 @@ class Api
 			$dustres=json_decode($dust);
 			if(isset($dustres->data[6])){
 				$hexdata=$dustres->data[6]->value;	//读取lora传递的字符
-				//echo $hexdata;	
+				//echo $hexdata;
+	
 				$dustdata=$this->gethexinfo($hexdata,$capdeviceName);		//解析lora的字符串信息
-				print_r($dustdata);
+				$this->getcollectdata($dustdata);
 		  }
-			echo "<br>";		
+			//echo "<br>";		
 		}
-		die("==");
 		//执行函数
-		$this->getcollectdata($dustdata);
+		
 		
 	}
 	
 	//解析lora的字符串信息
 	function gethexinfo($hexdata,$capdeviceName)
 	{
+		$dustdata["originaldata"]=$hexdata;		//原始数据
 		$dustdata["distance"]=hexdec(substr($hexdata,2,2));		//实测距离
 		$dustdata["template"]=hexdec(substr($hexdata,4,2));		//温度
 		$dustdata["elec"]=hexdec(substr($hexdata,22,2));		//电量
