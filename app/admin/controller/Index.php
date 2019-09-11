@@ -260,7 +260,7 @@ class Index extends Base
         $data['id']=$request->param('id');
         $data['state']=$request->param('state');
         $jhDustbinInfo=new JhDustbinInfo();
-        return $jhDustbinInfo->save($data);
+        return $jhDustbinInfo->save($data)->fetchsql(true);
 
     }
 
