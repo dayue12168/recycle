@@ -190,6 +190,8 @@ layui.use('element', function(){
           var id=$(this).parent().prevAll().eq(5).text();
           var that=$(this);
           var text=that.text();
+          console.log(text);
+          console.log(text=='禁用');
           if(text=='禁用'){
               var state=1;
               text='启用';
