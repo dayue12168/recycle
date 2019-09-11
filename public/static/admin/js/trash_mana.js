@@ -191,16 +191,21 @@ layui.use('element', function(){
           var id=$(this).parent().prevAll().eq(5).text();
           alert(id);
           alert($this.text());
+          return ;
           $.ajax({
               url:'/admin/index/updateJQ',
               type:'post',
-              data:{'id':id,'state':state},
+              data:{'id':id},
               cache:false,
               success:function(){
                   that.removeClass('Junbind').addClass("Jbind").text('绑定');
                   that.parent().prev().text('');
                   layer.msg('解绑成功');
               },
+              error:function(){
+                  layer.msg('修改失败');
+              }
+          })
 
       });
 
