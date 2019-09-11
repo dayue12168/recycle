@@ -191,10 +191,10 @@ layui.use('element', function(){
           var that=$(this);
           var text=that.text();
           if(text=='禁用'){
-              var state=0;
+              var state=1;
               text='启用';
           }else{
-              var state=1;
+              var state=0;
               text='禁用';
           }
           console.log({'id':id,'state':state});
