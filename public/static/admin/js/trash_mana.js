@@ -203,7 +203,11 @@ layui.use('element', function(){
               data:{'id':id,'state':state},
               cache:false,
               success:function(data){
-                  console.log(data);
+                  if(data){
+                      that.text(text);
+                  }else{
+                      layer.msg('请稍后再试');
+                  }
               },
               error:function(){
                   layer.msg('修改失败');
