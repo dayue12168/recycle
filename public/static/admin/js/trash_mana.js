@@ -190,7 +190,7 @@ layui.use('element', function(){
           alert("mmmm");
           var id=$(this).parent().prevAll().eq(5).text();
           alert(id);
-          alert($this.text());
+          alert($(this).text());
           return ;
           $.ajax({
               url:'/admin/index/updateJQ',
