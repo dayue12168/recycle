@@ -255,6 +255,15 @@ class Index extends Base
         return json($res);
     }
 
+    //禁启用垃圾桶设备
+    public function updateJQ(Request $request){
+        $data['id']=$request->param('id');
+        $data['state']=$request->param('state');
+        $jhDustbinInfo=new JhDustbinInfo();
+        return $jhDustbinInfo->save($data);
+
+    }
+
 
     //查询垃圾设备
     public function queryTrash(Request $request)

@@ -190,6 +190,18 @@ layui.use('element', function(){
           alert("mmmm");
           var id=$(this).parent().prevAll().eq(5).text();
           alert(id);
+          alert($this.text());
+          $.ajax({
+              url:'/admin/index/updateJQ',
+              type:'post',
+              data:{'id':id,'state':state},
+              cache:false,
+              success:function(){
+                  that.removeClass('Junbind').addClass("Jbind").text('绑定');
+                  that.parent().prev().text('');
+                  layer.msg('解绑成功');
+              },
+
       });
 
       //解绑垃圾桶
