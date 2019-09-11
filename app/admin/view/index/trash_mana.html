@@ -80,6 +80,14 @@
                             {else}
                             <button type="button" class="layui-btn layui-btn-danger layui-btn-small Jbind">绑定</button>
                             {/if}
+
+                            <button type="button" class="layui-btn layui-btn-danger layui-btn-small j_state">
+                                {if $val.dustbin_state}
+                                启用
+                                {else}
+                                禁用
+                                {/if}
+                            </button>
                         </td>
                         <td >
                             <span>{$val.count}</span>

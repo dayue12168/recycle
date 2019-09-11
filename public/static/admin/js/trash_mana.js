@@ -41,6 +41,7 @@ layui.use('element', function(){
                                 +'<span class="street">'+res.street+'</span></td><td>'+res.dust_length+'*'+res.dust_width
                                 +'*'+res.dust_height+'</td><td>'+res.longitude+','+res.latitude+'</td><td></td>' +
                                 '<td><button type="button" class="layui-btn layui-btn-danger layui-btn-small Jbind">绑定</button>' +
+                                '<button type="button" class="layui-btn layui-btn-danger layui-btn-small j_state">禁用</button>'+
                                 '</td><td><span>0</span><button type="button" class="layui-btn layui-btn-normal layui-btn-small  trashMana">管理</button></td>' +
                                 '<td><button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_trash">修改</button></td></tr>';
                             tbody.append(list);
@@ -154,10 +155,15 @@ layui.use('element', function(){
                       }else{
                           var td='<button type="button" class="layui-btn layui-btn-danger layui-btn-small Jbind">绑定</button>';
                       }
+                      if(res[i].dustbin_state){
+                          var td1='<button type="button" class="layui-btn layui-btn-danger layui-btn-small j_state">启用</button>';
+                      }else{
+                          var td1='<button type="button" class="layui-btn layui-btn-danger layui-btn-small j_state">禁用</button>';
+                      }
                       str +='<tr><td class="bind_id" style="display: none">'+res[i].dustbin_id+'</td> <td>'+res[i].dust_serial
                           +'</td><td><span class="city">'+res[i].city+'</span>-<span class="area">'+res[i].area+'</span>-<span class="street">'
                           +res[i].street+'</span>' +'</td><td>'+res[i].dust_length+'*'+res[i].dust_width+'*'+res[i].dust_height
-                          +'</td><td>'+res[i].longitude+','+res[i].latitude+'</td><td>'+res[i].cap_imei+'</td><td>'+td+'</td>' +
+                          +'</td><td>'+res[i].longitude+','+res[i].latitude+'</td><td>'+res[i].cap_imei+'</td><td>'+td+td1+'</td>'+
                           '<td><span>'+res[i].count+'</span>' +
                           '<button type="button" class="layui-btn layui-btn-normal layui-btn-small  trashMana">管理</button>' +
                           '</td><td><button type="button" class="layui-btn layui-btn-normal layui-btn-small reset_trash">修改</button>' +
@@ -178,6 +184,12 @@ layui.use('element', function(){
           // window.location.href = "trash_huanwei.html?id="+id;
       });
 
+
+      //禁启用垃圾桶
+      $(".j_state").on("click",function(){
+          var id=$(this).parent().prevAll().eq(5).text();
+          alert(id);
+      });
 
       //解绑垃圾桶
       $(".layui-table").on('click','.Junbind',function(){
