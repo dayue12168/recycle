@@ -186,7 +186,7 @@ layui.use('element', function(){
 
 
       //禁启用垃圾桶
-      $(".j_state").on("click",function(){
+      $(".j_state").click(function(){
           var id=$(this).parent().prevAll().eq(5).text();
           alert(id);
       });
