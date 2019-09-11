@@ -187,20 +187,23 @@ layui.use('element', function(){
 
       //禁启用垃圾桶
       $(".j_state").click(function(){
-          alert("mmmm");
           var id=$(this).parent().prevAll().eq(5).text();
-          alert(id);
-          alert($(this).text());
-          return ;
+          var that=$(this);
+          var text=that.text();
+          if(text=='禁用'){
+              var state=0;
+              text='启用';
+          }else{
+              var state=1;
+              text='禁用';
+          }
           $.ajax({
               url:'/admin/index/updateJQ',
               type:'post',
-              data:{'id':id},
+              data:{'id':id,'state':state},
               cache:false,
-              success:function(){
-                  that.removeClass('Junbind').addClass("Jbind").text('绑定');
-                  that.parent().prev().text('');
-                  layer.msg('解绑成功');
+              success:function(data){
+                  console.log(data);
               },
               error:function(){
                   layer.msg('修改失败');
