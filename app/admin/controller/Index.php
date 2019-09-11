@@ -257,8 +257,8 @@ class Index extends Base
 
     //禁启用垃圾桶设备
     public function updateJQ(Request $request){
-        $data['id']=$request->param('id');
-        $data['state']=$request->param('state');
+        $data['dustbin_id']=$request->param('id');
+        $data['dustbin_state']=$request->param('state');
         $jhDustbinInfo=new JhDustbinInfo();
         return $jhDustbinInfo->save($data)->fetchsql(true);
 
