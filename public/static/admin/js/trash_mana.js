@@ -197,7 +197,7 @@ layui.use('element', function(){
               var state=0;
               text='禁用';
           }
-          console.log({'id':id,'state':state});
+         // console.log({'id':id,'state':state});
           $.ajax({
               url:'/admin/index/updateJQ',
               type:'post',
