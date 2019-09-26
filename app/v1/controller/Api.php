@@ -51,6 +51,46 @@ class Api
     private $capappSecret = 'baf0238c94ed4111c1f2b9f102ed75ca';		//appsecret
     private $capproductKey = 'a1FMKlSx1Zj';		//产品号
     
+    /*
+    public function PostInfo($postdata = '')
+  {
+    $url = $postdata['url'];
+    $header = array(
+      "Content-Type: application/json",
+      "Accept: application/json"
+    );
+    $curl = curl_init();                                             // 启动一个CURL会话
+    curl_setopt($curl, CURLOPT_URL, $url);                            // 要访问的地址
+    curl_setopt($curl, CURLOPT_POST, 1);                              // 定义请求类型
+    curl_setopt($curl, CURLOPT_TIMEOUT, 30);                          // 设置一个长整形数，作为最大延续多少秒，设置超时限制防止死循环
+    ////curl_setopt($curl, CURLOPT_HEADER, 1);                           // 0不显示返回的Header区域内容，非0显示，默认为0
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);                  // 
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($postdata));   // POST提交的数据包
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);                 // 获取的信息以文件流的形式返回
+    $tmpInfo = curl_exec($curl);                                      // 执行操作
+    if (curl_errno($curl)) {
+      echo '操作错误：' . curl_error($curl);                          //捕抓异常
+    }
+      curl_close($curl);                                              // 关闭CURL会话
+      echo $tmpInfo;
+      die("==");
+      return $postdata['imei'] . ":" . $tmpInfo;                      // 返回数据，json格式
+  }
+  
+    public function test()
+    {
+    	//http://101.132.132.197/testabc
+      $postdata = array();
+      $postdata['update_time']  = "utime";
+      $postdata['imei']         = "imei";
+      $postdata['hexdata']      = "hexdata";
+      $postdata['url']          = "http://101.132.132.197/auto_get_infoself";
+      //$postdata['url']          = "http://www.nineseatech.com/public/api/Test";
+    	$this->PostInfo($postdata);
+    	
+    }
+    */
+    
     public function bigScreen()
     {
     	//用于临港项目大屏显示
@@ -65,9 +105,9 @@ class Api
         echo json_encode($res);
     }
 
-    public function getGarbageAlert()
-    {
-        // $path = "/setGarbageAlert";
+		public function dogetGarbageAlert($imei,$message,$source)
+		{
+			//定时溢出报警
         $path = "/API/api.ashx";
         $params = '{
                         "id": "bded4128dc454a03b3d10c45de17b863",
@@ -78,14 +118,36 @@ class Api
                         "apiVer": "1.0.0"
                         },
                         "params": {
-                        "message": "报警内容",
-                        "source": "报警来源"
+                        "message": "'.$message.'",
+                        "source": "'.$source.'"
                         }
                     }';
+        print_r($params);
         $demo = new Demo($this->appKey, $this->appSecret, $this->host);
         $res = $demo->doPostString($path, $params);
+				$this->writeoverlog($imei,"垃圾溢出报警结果：".$res);
+        return true;			
+		}
 
-        return $res;
+    public function getGarbageAlert()
+    {
+    	//定时溢出报警
+    	//http://101.132.132.197/get_garbage_alert
+    	//读取所有有溢出的垃圾桶
+			$sql="select jc.cap_imei,jdi.gps_gd,jdi.dust_address from jh_dustbin_info jdi join jh_cap jc on jdi.cap_id=jc.cap_id where dustbin_state=0 and cap_status=0 and dustbin_overflow=1";
+			$result=Db::query($sql);
+			if(count($result)==0)
+			{
+				$this->writeoverlog("当前无溢出垃圾桶","垃圾溢出");
+				//$this->dogetGarbageAlert("当前无溢出垃圾桶","当前无溢出垃圾桶","当前无溢出垃圾桶");
+			}
+			//循环所有
+			for($i=0;$i<count($result);$i++)
+			{
+				$this->writeoverlog($result[$i]["cap_imei"],"垃圾溢出");
+				$this->dogetGarbageAlert($result[$i]["cap_imei"],$result[$i]["dust_address"]."垃圾桶溢出","垃圾桶".$result[$i]["cap_imei"]."溢出报警");
+			}
+  
     }
 
 // 调用该接口获取物（设备）的基本信息。
@@ -94,7 +156,7 @@ class Api
         $host = 'https://api.link.aliyun.com';
         $path = "/app/thing/info/get";
         $params = '{
-                        "id": "bded4128dc454a03b3d10c45de17b863",
+                        "id": "bded4128dc454a03b3d10c45de17b868",
                         "version": "1.0",
                         "request": {
                             "apiVer": "1.0.0"
@@ -694,6 +756,31 @@ class Api
 	{
 		//读取垃圾监测信息日志
 		$this->logWrite(date("Ymd")."-collectdata.txt", $code."---".$info."\r\n");
+	}
+	
+	function writelog2($info,$code)
+	{
+		//读取垃圾监测信息日志,通过自己的推送
+		$this->logWrite(date("Ymd")."-collectdataself1.txt", $code."---".$info."\r\n");
+	}
+	
+	function writeoverlog($info,$code)
+	{
+		//垃圾溢出报警日志
+		$this->logWrite(date("Ymd")."-overflow.txt", $code."---".$info."\r\n");
+	}
+	
+	function autogetinfoself()
+	{
+		//http://101.132.132.197/auto_get_infoself
+		//通过自己的推送获取的推送（不通过阿里）
+		$getinfo=json_encode($_REQUEST);
+		$this->writelog2($getinfo,"");
+		//echo $getinfo;
+		$getinfo2=json_encode(file_get_contents('php://input'));
+		$this->writelog2($getinfo2,"");
+		//echo $getinfo2;
+		echo "1";
 	}
 	
 	function autogetinfo()

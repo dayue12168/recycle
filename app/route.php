@@ -45,6 +45,8 @@ Route::get('res1', 'v1/OAuth/res1');
 Route::get('sso', 'v1/Api/sso');
 
 Route::get('auto_get_info', 'v1/Api/autogetinfo');
+Route::rule('auto_get_infoself', 'v1/Api/autogetinfoself');
+//Route::get('testabc', 'v1/Api/test');
 Route::get('get_dust_info', 'admin/Index/getDustInfo');
 
 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1559010242;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:59:"/project/recycle/public/../app/admin/view/index/index2.html";i:1565607105;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

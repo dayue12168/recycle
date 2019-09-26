@@ -20,11 +20,11 @@
                 data:data.field,
                 success:function(res){
                     // console.log(res);
-                    if(!res){
-                        layer.msg('请检查您的用户名和密码');
-                    }else{
+                    if(res.code == -1){
+                        layer.msg(res.msg);
+                    }else if(res.code == 0){
+                        layer.msg(res.msg);
                         window.location.href="/admin/Index/index";
-                        // window.location.href="http://www.baidu.com";
                     }
                 }
             });

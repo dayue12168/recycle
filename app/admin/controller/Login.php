@@ -25,7 +25,7 @@ class Login extends Controller
         $res=model('Login','service')->loginCheck($data);
         if($res){
             session('adminUser',$data['username']);
-            return true;
+            return $res;
         }
         return false;
 
